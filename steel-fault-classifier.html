@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Steel Plate Fault Classifier | K|Intel</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <script src="https://kit.fontawesome.com/a3b5e2e058.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <a href="index.html" class="logo" id="logo"></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="about.html">ABOUT</a></li>
+        <li><a href="projects.html">PROJECTS</a></li>
+        <li><a href="resume.html">RESUME</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="top"></div>
+
+  <!-- Project Hero Section -->
+  <section class="page-section">
+    <h1 class="page-name">Steel Plate Fault Classifier</h1>
+    <p class="quote">
+      Data-driven fault detection in steel plates using Random Forest and Gradient Boosting, with feature selection insights.
+    </p>
+
+    <!-- Project Details -->
+    <div class="project-details scroll-fade">
+
+      <h3>OVERVIEW</h3>
+      <p>
+        This project aimed to develop a predictive machine learning model to classify faults in steel plates based on numerical features collected during manufacturing. 
+        By identifying patterns associated with common defects, the model supports proactive quality control and defect reduction.
+      </p>
+
+      <h3>KEY FEATURES & IMPLEMENTATION</h3>
+      <p>
+        • Data preprocessing including scaling, cleaning, and feature selection via Chi-square analysis<br>
+        • Multi-class classification using Random Forest and Gradient Boosting models<br>
+        • Performance evaluation through sample dataset predictions<br>
+        • Visualization of fault distribution and feature importance
+      </p>
+
+      <h3>TECHNOLOGIES USED</h3>
+      <p>
+        Python, Scikit-learn, Pandas, NumPy, Matplotlib, Seaborn, Jupyter Notebook
+      </p>
+
+      <h3>CHALLENGES</h3>
+      <p>
+        • Addressing class imbalance and overfitting on rare fault types<br>
+        • Extracting the most informative features from a noisy industrial dataset<br>
+        • Ensuring consistency in classification outcomes across samples
+      </p>
+
+      <h3>LEARNINGS & IMPACT</h3>
+      <p>
+        This project enhanced my understanding of ensemble classification and industrial fault detection. 
+        It also demonstrated how statistical feature selection and model tuning can significantly improve classification reliability in real-world applications.
+      </p>
+
+      <h3>SCREENSHOTS & DIAGRAMS</h3>
+      <div class="screenshot-wrapper" style="text-align: center;">
+        <img src="images/Fault Classes Distribution.png" alt="Fault Class Distribution" class="project-screenshot" style="max-width: 900px; height: auto;" />
+        <p style="margin-top: 0.5rem;">
+          <strong>Figure 1.</strong> Original dataset class distribution showing imbalance across fault types
+        </p>
+      </div>
+
+      <div class="screenshot-wrapper" style="text-align: center;">
+        <img src="images/Feature Significance.png" alt="Feature Significance by Chi-square" class="project-screenshot" style="max-width: 900px; height: auto;" />
+        <p style="margin-top: 0.5rem;">
+          <strong>Figure 2.</strong> Chi-square feature importance — identifying the most predictive attributes
+        </p>
+      </div>
+
+      <div class="screenshot-wrapper" style="text-align: center;">
+        <img src="images/New Sample Fault Classes Distribution  GBM.png" alt="GBM Classification Output" class="project-screenshot" style="max-width: 900px; height: auto;" />
+        <p style="margin-top: 0.5rem;">
+          <strong>Figure 3.</strong> Distribution of predicted fault classes in sample data using Gradient Boosting
+        </p>
+      </div>
+
+      <div class="screenshot-wrapper" style="text-align: center;">
+        <img src="images/New Sample Fault Classes Distribution RF.png" alt="Random Forest Classification Output" class="project-screenshot" style="max-width: 900px; height: auto;" />
+        <p style="margin-top: 0.5rem;">
+          <strong>Figure 4.</strong> Distribution of predicted fault classes in sample data using Random Forest
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-icons">
+      <div class="icon-wrapper">
+        <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank">
+          <img src="images/linkedin_icon.png" alt="LinkedIn" class="footer-icon">
+          <span class="tooltip">LinkedIn</span>
+        </a>
+      </div>
+      <div class="icon-wrapper">
+        <a href="contact.html">
+          <img src="images/contact_icon.png" alt="Contact" class="footer-icon">
+          <span class="tooltip">Contact</span>
+        </a>
+      </div>
+      <div class="icon-wrapper">
+        <a href="resume.html">
+          <img src="images/resume_icon.png" alt="Resume" class="footer-icon">
+          <span class="tooltip">Resume</span>
+        </a>
+      </div>
+    </div>
+    <div style="margin-top: 1.5rem; font-size: 0.9rem;">
+      © 2025 <strong>K|Intel</strong>. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

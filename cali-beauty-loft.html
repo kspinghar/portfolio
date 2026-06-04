@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cali Beauty Loft — Hair Studio Website — Khalid Spinghar</title>
+  <meta name="description" content="A full-stack marketing and booking website for a California hair studio, built with Next.js, Supabase, and Tailwind and deployed on Netlify." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+<!-- SVG icon sprite -->
+<svg width="0" height="0" style="display:none" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+  </symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </symbol>
+</svg>
+
+<!-- ── NAV ── -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Khalid Spinghar</a>
+    <div class="nav-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="nav-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <a href="index.html" class="detail-back">← Back to home</a>
+
+    <!-- Header -->
+    <div class="detail-header">
+      <h1 class="detail-title">Cali Beauty Loft — Hair Studio Website</h1>
+      <p class="detail-meta">2026 · client project · full-stack web build · live in production</p>
+      <div class="detail-tags">
+        <span class="tag">Next.js</span>
+        <span class="tag">React</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Tailwind</span>
+        <span class="tag">Supabase</span>
+        <span class="tag">Framer Motion</span>
+        <span class="tag">Netlify</span>
+      </div>
+    </div>
+
+    <!-- The Brief -->
+    <div class="detail-section">
+      <p class="detail-section-label">The Brief</p>
+      <p>
+        Cali Beauty Loft is a hair studio in Mountain House, California. The owner needed a professional web presence that does three jobs at once. It has to present the studio and its work, lay out services and prices clearly, and funnel visitors toward booking an appointment. The booking itself runs through an external system (Hey Goldie), so the site's role was to be the polished front door that builds trust and sends ready-to-book clients there.
+      </p>
+      <p>
+        This was real client work with a real stakeholder, not a sandbox project. That changes the priorities. Clarity, trust, maintainability, and a clean path to booking matter more than technical novelty.
+      </p>
+    </div>
+
+    <!-- My Approach -->
+    <div class="detail-section">
+      <p class="detail-section-label">My Approach</p>
+      <p>
+        I built it as a modern full-stack site rather than a drag-and-drop template, so it stays fast, fully under my control, and easy to extend. The front end is Next.js with the App Router, React, and TypeScript, styled with Tailwind and brought to life with Framer Motion. Supabase sits behind an optional email-signup and a lightweight analytics layer. The whole site deploys on Netlify, which rebuilds and ships automatically every time I push to the main branch on GitHub.
+      </p>
+      <p>
+        AI was an accelerator here, not the author. I owned the brief with the client, the information architecture, the content model, the deployment pipeline, and every design decision. Working with AI tooling let me move from idea to a polished production site far faster than hand-building each component, without giving up control of the parts that matter.
+      </p>
+    </div>
+
+    <!-- What I Built -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Built</p>
+
+      <p><strong style="color:var(--text)">Marketing homepage:</strong> A hero, a services preview, and a gallery that introduce the studio and guide visitors toward booking.</p>
+
+      <p><strong style="color:var(--text)">Services and pricing page:</strong> A full, categorised breakdown of every service with prices and durations, kept in sync with the studio's live booking page.</p>
+
+      <p><strong style="color:var(--text)">Single source of truth for services:</strong> The most useful design choice in the build. Every service name, price, and duration lives in one TypeScript file, and both the homepage preview and the full pricing page read from it. Updating a price is a one-line change in one place, with no risk of the homepage and the pricing page drifting apart. For a real business whose prices change, that maintainability matters more than any clever feature.</p>
+
+      <p><strong style="color:var(--text)">Image gallery:</strong> Built from the studio's own photography, optimised and cleanly organised.</p>
+
+      <p><strong style="color:var(--text)">Supabase-backed signup and analytics:</strong> An optional email-capture form and lightweight first-party analytics that degrade gracefully when not configured, so the site never breaks if the backend is switched off.</p>
+
+      <p><strong style="color:var(--text)">Booking handoff and continuous deployment:</strong> A clean handoff to the external Hey Goldie booking system, and a Netlify pipeline that rebuilds and deploys automatically on every push to GitHub.</p>
+
+      <div class="metric-row">
+        <div class="metric">
+          <p class="metric-label">Status</p>
+          <p class="metric-value">Live</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Stack</p>
+          <p class="metric-value">Next.js 14</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Deploy</p>
+          <p class="metric-value">Netlify CI</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="detail-section">
+      <p class="detail-section-label">Result</p>
+      <p>
+        The site is live in production at <a href="https://calibeautyloft.com" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">calibeautyloft.com</a>, serving a real business and its clients. Any change I push to GitHub is built and deployed automatically within minutes, so the owner gets updates without any manual deploy step.
+      </p>
+    </div>
+
+    <!-- What I Learned -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Learned</p>
+      <p>
+        Building for a real, non-technical client is a different discipline from building for myself. The priorities shift toward clarity, trust, and maintainability rather than technical novelty. Designing the services system so the owner's prices stay trivial to update turned out to be more valuable than any single feature.
+      </p>
+      <p>
+        It also showed where AI genuinely changes the economics of delivery. With the architecture and the decisions in my hands, AI tooling compressed the implementation enough to ship a complete, production-grade site on a realistic timeline, without cutting corners on the parts that matter.
+      </p>
+    </div>
+
+    <!-- Links -->
+    <div class="links-row">
+      <a href="https://github.com/kspinghar/cali-beauty-loft" target="_blank" rel="noopener noreferrer" class="link-item">GitHub →</a>
+      <a href="https://calibeautyloft.com" target="_blank" rel="noopener noreferrer" class="link-item">Live Demo →</a>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-text">Khalid Spinghar · Oslo · github.com/kspinghar</span>
+    <div class="footer-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="footer-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<!-- ── CONTACT MODAL ── -->
+<div class="modal-overlay" id="contact-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-title-text">Get in touch</span>
+      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <form id="contact-form" action="https://formsubmit.co/khalid.spinghar@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_subject" value="New message from portfolio" />
+      <div class="form-group">
+        <label class="form-label" for="contact-name">Name</label>
+        <input class="form-input" type="text" id="contact-name" name="name" required autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-email">Email</label>
+        <input class="form-input" type="email" id="contact-email" name="email" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-message">Message</label>
+        <textarea class="form-textarea" id="contact-message" name="message" rows="4" maxlength="1000" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message</button>
+      <p class="form-success-msg" id="form-success-msg">Thanks — I'll get back to you soon.</p>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

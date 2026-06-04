@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bank Customer Churn Analysis | K|Intel</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <script src="https://kit.fontawesome.com/a3b5e2e058.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <a href="index.html" class="logo" id="logo"></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="about.html">ABOUT</a></li>
+        <li><a href="projects.html">PROJECTS</a></li>
+        <li><a href="resume.html">RESUME</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="top"></div>
+
+  <!-- Project Hero Section -->
+  <section class="page-section">
+    <h1 class="page-name">Bank Customer Churn Analysis</h1>
+    <p class="quote">
+      A deep dive into the behavioral and demographic patterns of banking clients to identify churn risks using classification and exploratory data analysis.
+    </p>
+
+    <!-- Project Details -->
+    <div class="project-details scroll-fade">
+
+      <h3>OVERVIEW</h3>
+      <p>
+        This project investigates churn behavior among bank customers by leveraging structured customer data to identify the factors that most strongly influence attrition. The goal was to support customer retention strategies by understanding exit trends and predicting customer churn.
+      </p>
+
+      <h3>KEY FEATURES & IMPLEMENTATION</h3>
+      <p>
+        • Exploratory analysis across demographics, satisfaction levels, and complaint behavior<br>
+        • Handling of missing data, encoding of categorical variables, and outlier visualization<br>
+        • Feature correlation matrix and importance ranking<br>
+        • Binary classification modeling for churn prediction<br>
+        • Visual storytelling with targeted graphs for stakeholder interpretation
+      </p>
+
+      <h3>TECHNOLOGIES USED</h3>
+      <p>
+        Python, Pandas, Matplotlib, Seaborn, NumPy, Scikit-learn, Jupyter Notebook
+      </p>
+
+      <h3>CHALLENGES</h3>
+      <p>
+        • Understanding non-obvious churn triggers across multiple variables<br>
+        • Dealing with imbalanced churn data<br>
+        • Linking satisfaction and complaint data to actual churn outcomes<br>
+        • Maintaining clean and interpretable visualizations across complex variables
+      </p>
+
+      <h3>LEARNINGS & IMPACT</h3>
+      <p>
+        This analysis sharpened my ability to extract actionable insights from exploratory data, especially when dealing with human behavior and attrition. It also reinforced the value of storytelling in data presentation and how visualization can inform decision-making in business contexts.
+      </p>
+
+      <h3>SCREENSHOTS & DIAGRAMS</h3>
+
+      <div class="screenshot-wrapper" style="text-align: center;">
+        <img src="images/complaints_by_tenure_range.png" alt="Complaints by Tenure Range" class="project-screenshot" style="max-width: 100%; height: auto;" />
+        <p style="margin-top: 0.5rem; font-style: italic;"><strong>Figure 1.</strong> Most complaints originate from newer customers with 0–1 years of tenure.</p>
+    </div>
+
+    <div class="screenshot-wrapper" style="text-align: center;">
+        <img src="images/complaints_by_age_range.png" alt="Complaints by Age Range" class="project-screenshot" style="max-width: 100%; height: auto;" />
+        <p style="margin-top: 0.5rem; font-style: italic;"><strong>Figure 2.</strong> The majority of complaints come from customers aged 30–50.</p>
+    </div>
+
+    <div class="screenshot-wrapper" style="text-align: center;">
+        <img src="images/complaints_pie_chart.png" alt="Complaint vs Non-Complaint Pie Chart" class="project-screenshot" style="max-width: 100%; height: auto;" />
+        <p style="margin-top: 0.5rem; font-style: italic;"><strong>Figure 3.</strong> Only 35% of customers logged complaints, indicating potential silent dissatisfaction.</p>
+    </div>
+
+
+      <div class="screenshot-wrapper" style="text-align: center;">
+        <img src="images/credit_score_distribution.png" alt="Credit Score Distribution" class="project-screenshot" style="max-width: 100%; height: auto;" />
+        <p style="margin-top: 0.5rem; font-style: italic;"><strong>Figure 4.</strong> Distribution of credit scores among customers analyzed for churn risk.</p>
+      </div>
+
+      <div class="screenshot-wrapper" style="text-align: center;">
+        <img src="images/correlation_matrix.png" alt="Correlation Matrix" class="project-screenshot" style="max-width: 100%; height: auto;" />
+        <p style="margin-top: 0.5rem; font-style: italic;"><strong>Figure 5.</strong> Correlation heatmap showing relationships between input variables.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-icons">
+      <div class="icon-wrapper">
+        <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank">
+          <img src="images/linkedin_icon.png" alt="LinkedIn" class="footer-icon">
+          <span class="tooltip">LinkedIn</span>
+        </a>
+      </div>
+      <div class="icon-wrapper">
+        <a href="contact.html">
+          <img src="images/contact_icon.png" alt="Contact" class="footer-icon">
+          <span class="tooltip">Contact</span>
+        </a>
+      </div>
+      <div class="icon-wrapper">
+        <a href="resume.html">
+          <img src="images/resume_icon.png" alt="Resume" class="footer-icon">
+          <span class="tooltip">Resume</span>
+        </a>
+      </div>
+    </div>
+    <div style="margin-top: 1.5rem; font-size: 0.9rem;">
+      © 2025 <strong>K|Intel</strong>. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

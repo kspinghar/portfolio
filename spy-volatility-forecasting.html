@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPY Volatility Forecasting — Khalid Spinghar</title>
+  <meta name="description" content="CNN, LSTM, and CNN-LSTM hybrid models to predict forward realized volatility of SPY across 5- and 10-day horizons." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+<!-- SVG icon sprite -->
+<svg width="0" height="0" style="display:none" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+  </symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </symbol>
+</svg>
+
+<!-- ── NAV ── -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Khalid Spinghar</a>
+    <div class="nav-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="nav-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <a href="index.html" class="detail-back">← Back to home</a>
+
+    <!-- Header -->
+    <div class="detail-header">
+      <h1 class="detail-title">SPY Volatility Forecasting — CNN/LSTM</h1>
+      <p class="detail-meta">Feb 2025 · 6 min read · MSc AI, Kristiania University College — Advanced Machine Intelligence and Deep Learning</p>
+      <div class="detail-tags">
+        <span class="tag">Python</span>
+        <span class="tag">TensorFlow</span>
+        <span class="tag">Keras</span>
+        <span class="tag">CNN</span>
+        <span class="tag">LSTM</span>
+        <span class="tag">CNN-LSTM</span>
+        <span class="tag">pandas</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">time-series</span>
+      </div>
+    </div>
+
+    <!-- The Problem -->
+    <div class="detail-section">
+      <p class="detail-section-label">The Problem</p>
+      <p>
+        Volatility — the degree to which an asset's price fluctuates — is the central quantity in options pricing, risk management, and portfolio construction. Unlike price itself, future volatility is not directly observable. You are always forecasting something you cannot see until after it has happened.
+      </p>
+      <p>
+        The standard approach, the GARCH family of models, assumes stationary statistical relationships that financial markets frequently violate. The question this project explored was whether deep learning models — particularly those designed to extract both local patterns and sequential dependencies — could produce more adaptive volatility estimates for SPY (the S&P 500 ETF), the most liquid equity instrument in the world.
+      </p>
+    </div>
+
+    <!-- My Approach -->
+    <div class="detail-section">
+      <p class="detail-section-label">My Approach</p>
+      <p>
+        I worked with 30 years of daily SPY closing prices (January 1993 to February 2026 — 8,318 trading days), computing log returns as the primary signal. The target variable is forward realized volatility measured over two horizons: 5 trading days (vol_5) and 10 trading days (vol_10). This is a regression problem, not classification.
+      </p>
+      <p>
+        To structure the data for supervised learning, I used a 120-day lookback window: each sample consists of the last 120 log returns as input features, with the corresponding forward volatility as the label. This produced 8,187 usable samples. The split was strictly chronological — 70% train, 15% validation, 15% test — to prevent any lookahead leakage. Standardization was fitted on the training set only and applied forward.
+      </p>
+      <p>
+        I evaluated four models to isolate the contribution of each architectural choice: a persistence baseline, a 1D CNN, a plain LSTM, and a CNN-LSTM hybrid.
+      </p>
+    </div>
+
+    <!-- What I Built -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Built</p>
+
+      <p><strong style="color:var(--text)">Baseline (Persistence):</strong> The last h observed log returns used as the volatility estimate. A deliberate floor — any trained model that cannot beat this is not worth deploying.</p>
+
+      <p><strong style="color:var(--text)">1D CNN:</strong> One-dimensional convolutional layers slide across the 120-day window to detect local return patterns — spikes, clusters of high variation — before pooling and passing to a dense head. CNNs are efficient at picking up local temporal motifs without needing to model the full sequence.</p>
+
+      <p><strong style="color:var(--text)">LSTM:</strong> The recurrent network processes the sequence step by step, maintaining a hidden state that captures longer-range dependencies. Dropout was applied to reduce overfitting on the limited training window. LSTMs are theoretically well-suited to volatility clustering — the tendency for high-volatility periods to persist.</p>
+
+      <p><strong style="color:var(--text)">CNN-LSTM Hybrid:</strong> Convolutional layers first extract local features from the raw sequence, then pass the compressed representation to an LSTM layer for sequential modelling. The hypothesis was that this combination would outperform either architecture alone by decomposing the learning problem into local feature extraction followed by temporal integration.</p>
+
+      <div class="metric-row">
+        <div class="metric">
+          <p class="metric-label">Dataset</p>
+          <p class="metric-value">8,318 days</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Samples</p>
+          <p class="metric-value">8,187</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Lookback</p>
+          <p class="metric-value">120 days</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Horizons</p>
+          <p class="metric-value">vol_5, vol_10</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="detail-section">
+      <p class="detail-section-label">Results</p>
+      <p>
+        All three deep learning models were evaluated against the persistence baseline using MAE and RMSE across both vol_5 and vol_10 targets. The CNN-LSTM hybrid achieved the strongest performance, outperforming the standalone CNN and LSTM models on both horizons. The plain LSTM performed competitively on the longer 10-day horizon, where sequential dependencies have more time to manifest. The CNN showed the fastest training convergence.
+      </p>
+      <p>
+        The 10-day horizon consistently produced higher absolute errors than the 5-day horizon across all models — forecasting further into the future compounds uncertainty, regardless of architecture.
+      </p>
+      <p>
+        All trained models beat the persistence baseline, confirming that the learned representations carry useful predictive signal beyond simple naive extrapolation.
+      </p>
+      <p style="color:var(--muted); font-size:0.82rem; font-family:var(--font-mono)">
+        Note: exact MAE/RMSE values are in the full report (AMI4100_Volatility_Forecasting_Report.pdf) — link below.
+      </p>
+    </div>
+
+    <!-- What I Learned -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Learned</p>
+      <p>
+        The most important lesson was about data leakage in time-series problems. It is easy to accidentally standardize using full-dataset statistics or shuffle samples before splitting — both of which allow future information to bleed into the training set and produce deceptively good validation metrics. Enforcing strict chronological discipline throughout is non-negotiable.
+      </p>
+      <p>
+        I also came to appreciate how much of a CNN's strength comes from its inductive bias toward local patterns. Volatility clustering — the empirical tendency for turbulent periods to group together — is exactly the kind of local motif a 1D CNN can detect efficiently, which explains why it competed well despite being simpler than the LSTM.
+      </p>
+      <p>
+        Finally, this project made the case for always having a strong naive baseline. A persistence estimator is free to compute and often surprisingly hard to beat. Beating it is necessary but not sufficient — the question is always how much better and whether the additional complexity is worth it in deployment.
+      </p>
+    </div>
+
+    <!-- Links -->
+    <div class="links-row">
+      <a href="https://github.com/kspinghar/spy-volatility-forecasting" target="_blank" rel="noopener noreferrer" class="link-item">GitHub →</a>
+      <a href="https://huggingface.co/spaces/kalspi/spy-volatility-forecasting" target="_blank" rel="noopener noreferrer" class="link-item">Live Demo →</a>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-text">Khalid Spinghar · Oslo · github.com/kspinghar</span>
+    <div class="footer-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="footer-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<!-- ── CONTACT MODAL ── -->
+<div class="modal-overlay" id="contact-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-title-text">Get in touch</span>
+      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <form id="contact-form" action="https://formsubmit.co/khalid.spinghar@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_subject" value="New message from portfolio" />
+      <div class="form-group">
+        <label class="form-label" for="contact-name">Name</label>
+        <input class="form-input" type="text" id="contact-name" name="name" required autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-email">Email</label>
+        <input class="form-input" type="email" id="contact-email" name="email" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-message">Message</label>
+        <textarea class="form-textarea" id="contact-message" name="message" rows="4" maxlength="1000" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message</button>
+      <p class="form-success-msg" id="form-success-msg">Thanks — I'll get back to you soon.</p>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insurance Risk Segmentation — Khalid Spinghar</title>
+  <meta name="description" content="Unsupervised segmentation of 678,013 French auto insurance policies using K-Means and PCA to surface three distinct risk profiles." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+<!-- SVG icon sprite -->
+<svg width="0" height="0" style="display:none" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+  </symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </symbol>
+</svg>
+
+<!-- ── NAV ── -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Khalid Spinghar</a>
+    <div class="nav-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="nav-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <a href="index.html" class="detail-back">← Back to home</a>
+
+    <!-- Header -->
+    <div class="detail-header">
+      <h1 class="detail-title">Insurance Risk Segmentation</h1>
+      <p class="detail-meta">Mar 2026 · 7 min read · MSc AI, Kristiania University College — Smart Analysis and Decision Making</p>
+      <div class="detail-tags">
+        <span class="tag">Python</span>
+        <span class="tag">scikit-learn</span>
+        <span class="tag">K-Means</span>
+        <span class="tag">PCA</span>
+        <span class="tag">Hierarchical Clustering</span>
+        <span class="tag">pandas</span>
+        <span class="tag">matplotlib</span>
+        <span class="tag">SciPy</span>
+      </div>
+    </div>
+
+    <!-- The Problem -->
+    <div class="detail-section">
+      <p class="detail-section-label">The Problem</p>
+      <p>
+        Insurance pricing is fundamentally a risk estimation problem. A policyholder who makes many claims costs the insurer money; one who never claims is profitable. The challenge is that you cannot know in advance which type of customer you are dealing with — you can only look at observable characteristics and infer risk.
+      </p>
+      <p>
+        This project used the <em>freMTPL2freq</em> dataset — a standard actuarial benchmark containing 678,013 French motor third-party liability insurance policies — to ask: do policyholders naturally group into distinct risk profiles based on their characteristics, and do those groupings predict claim behaviour?
+      </p>
+      <p>
+        The key constraint was that this had to be done without using claim counts as an input feature. Segmentation had to emerge from policyholder attributes alone, with claims used only for post-hoc validation.
+      </p>
+    </div>
+
+    <!-- My Approach -->
+    <div class="detail-section">
+      <p class="detail-section-label">My Approach</p>
+      <p>
+        The dataset has 12 features per policy. I selected five numerical features for clustering: vehicle power (VehPower), vehicle age (VehAge), driver age (DrivAge), bonus-malus coefficient (BonusMalus — a French regulatory risk score), and population density (Density). Density was log-transformed to compress its heavy right skew, then all features were standardised using StandardScaler.
+      </p>
+      <p>
+        I evaluated three algorithms: K-Means on the raw 5D feature space, K-Means on PCA-reduced representations (testing 3 and 4 principal components), and hierarchical clustering with Ward linkage on a 2,000-point subsample (required because hierarchical clustering's O(n²) memory complexity makes it infeasible on the full 678k rows).
+      </p>
+      <p>
+        The number of clusters was selected through two independent methods — the elbow method on within-cluster sum of squares, and silhouette analysis — both of which pointed to K=3 as optimal.
+      </p>
+    </div>
+
+    <!-- What I Built -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Built</p>
+
+      <p><strong style="color:var(--text)">PCA analysis:</strong> Five principal components were computed. The variance decomposition showed no sharp elbow — PC1 explained 30.6%, PC2 22.1%, PC3 19.9%, PC4 17.3%, PC5 10.2% — meaning the feature space has no dominant axis of variation. PCA-3 (the first three components) provided the best trade-off between dimensionality reduction and information retention for downstream clustering.</p>
+
+      <p><strong style="color:var(--text)">Clustering comparison:</strong> Four configurations were benchmarked using internal validity indices:</p>
+      <ul style="font-size:0.91rem; color:var(--dim); line-height:1.8; padding-left:1.2rem; margin-bottom:0.75rem;">
+        <li>K-Means on original 5D space: Silhouette 0.197, Davies-Bouldin 1.688</li>
+        <li>K-Means on PCA-3: Silhouette <strong style="color:var(--accent)">0.260</strong> (best), Davies-Bouldin <strong style="color:var(--accent)">1.318</strong> (best)</li>
+        <li>K-Means on PCA-4: Silhouette 0.212, Davies-Bouldin 1.580</li>
+        <li>Hierarchical / Ward: Silhouette 0.219, Davies-Bouldin 1.551</li>
+      </ul>
+      <p>K-Means on PCA-3 was the clear winner across all metrics. Dimensionality reduction before clustering removed noise from the feature space and improved cluster separation.</p>
+
+      <p><strong style="color:var(--text)">Validation:</strong> Kruskal-Wallis tests confirmed that claim frequency differences across the three clusters were highly statistically significant (p ≪ 0.001), meaning the segments weren't artefacts of the algorithm — they tracked real differences in policyholder behaviour.</p>
+
+      <div class="metric-row">
+        <div class="metric">
+          <p class="metric-label">Policies</p>
+          <p class="metric-value">678,013</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Best Silhouette</p>
+          <p class="metric-value">0.260</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Optimal K</p>
+          <p class="metric-value">3</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="detail-section">
+      <p class="detail-section-label">Results</p>
+      <p>The three clusters told a coherent actuarial story:</p>
+
+      <p>
+        <strong style="color:var(--text)">Cluster 0 — Rural Mature Low-Risk (46.9%, 318,130 policies):</strong> Average driver age 50.8, bonus-malus 52.3, low population density (2,132). Claim frequency 0.190 — the lowest of the three groups. Older, experienced drivers in lower-density areas pose the least risk.
+      </p>
+      <p>
+        <strong style="color:var(--text)">Cluster 1 — Young Urban High-Risk (22.6%, 153,563 policies):</strong> Average driver age 31.6, bonus-malus 84.2, urban density (2,451). Claim frequency 0.351 — nearly double Cluster 0. Young drivers in cities with elevated bonus-malus scores are the highest-risk segment.
+      </p>
+      <p>
+        <strong style="color:var(--text)">Cluster 2 — Urban Mature Moderate-Risk (30.4%, 206,320 policies):</strong> Average driver age 47.6, bonus-malus 53.1, lower density (778). Claim frequency 0.289 — intermediate. Mature drivers but in a different geographic and risk profile from Cluster 0.
+      </p>
+      <p>
+        These three profiles map cleanly onto risk tiers an actuary would recognise. The segmentation emerged purely from unsupervised learning — no claim data was used as input.
+      </p>
+    </div>
+
+    <!-- What I Learned -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Learned</p>
+      <p>
+        The most practically useful insight was that PCA before K-Means is not just a trick to speed up computation — it materially improves cluster quality by removing correlated noise dimensions. The gap between PCA-3 and the raw 5D clustering was larger than I expected.
+      </p>
+      <p>
+        I also learned to be more careful about what "interpretable" means in unsupervised settings. Internal indices (silhouette, Davies-Bouldin) tell you how tight and well-separated clusters are, but they say nothing about whether those clusters are meaningful. The Kruskal-Wallis validation step was essential to confirm that the algorithm had found something real, not just a tidy mathematical partition.
+      </p>
+      <p>
+        The hierarchical clustering experiment was humbling. Even on a 2,000-point subsample, it produced comparable results to K-Means on the full dataset — suggesting that for well-separated clusters, you often don't need all the data. But its O(n²) scaling makes it impractical for production insurance datasets, where K-Means scales linearly and wins on deployment feasibility.
+      </p>
+    </div>
+
+    <!-- Links -->
+    <div class="links-row">
+      <a href="https://github.com/kspinghar/insurance-segmentation" target="_blank" rel="noopener noreferrer" class="link-item">GitHub →</a>
+      <a href="https://huggingface.co/spaces/kalspi/insurance-segmentation" target="_blank" rel="noopener noreferrer" class="link-item">Live Demo →</a>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-text">Khalid Spinghar · Oslo · github.com/kspinghar</span>
+    <div class="footer-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="footer-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<!-- ── CONTACT MODAL ── -->
+<div class="modal-overlay" id="contact-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-title-text">Get in touch</span>
+      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <form id="contact-form" action="https://formsubmit.co/khalid.spinghar@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_subject" value="New message from portfolio" />
+      <div class="form-group">
+        <label class="form-label" for="contact-name">Name</label>
+        <input class="form-input" type="text" id="contact-name" name="name" required autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-email">Email</label>
+        <input class="form-input" type="email" id="contact-email" name="email" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-message">Message</label>
+        <textarea class="form-textarea" id="contact-message" name="message" rows="4" maxlength="1000" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message</button>
+      <p class="form-success-msg" id="form-success-msg">Thanks — I'll get back to you soon.</p>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

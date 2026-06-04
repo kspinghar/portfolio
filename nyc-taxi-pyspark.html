@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NYC Taxi PySpark Pipeline — Khalid Spinghar</title>
+  <meta name="description" content="PySpark pipeline over 2020–2024 NYC Yellow and Green Taxi trip data — Parquet ingest, Spark SQL cleaning, feature engineering, and a Spark ML regression to predict fare amount." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+<!-- SVG icon sprite -->
+<svg width="0" height="0" style="display:none" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+  </symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </symbol>
+</svg>
+
+<!-- ── NAV ── -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Khalid Spinghar</a>
+    <div class="nav-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="nav-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <a href="index.html" class="detail-back">← Back to home</a>
+
+    <!-- Header -->
+    <div class="detail-header">
+      <h1 class="detail-title">NYC Taxi PySpark Pipeline</h1>
+      <p class="detail-meta">Nov 2025 · 6 min read · MSc AI, Kristiania University College — Big Data Systems</p>
+      <div class="detail-tags">
+        <span class="tag">PySpark</span>
+        <span class="tag">Spark SQL</span>
+        <span class="tag">Spark ML</span>
+        <span class="tag">Parquet</span>
+        <span class="tag">SQLite</span>
+        <span class="tag">pandas</span>
+        <span class="tag">data engineering</span>
+      </div>
+    </div>
+
+    <!-- The Problem -->
+    <div class="detail-section">
+      <p class="detail-section-label">The Problem</p>
+      <p>
+        The NYC Taxi and Limousine Commission publishes monthly Parquet files covering every yellow- and green-taxi trip in New York City. Across the 2020–2024 window the data runs to hundreds of millions of rows — far beyond what a single-machine pandas workflow can comfortably handle. The exercise was to treat it as a real big-data problem from the start: build the ingest, cleaning, feature engineering, EDA, and modelling stages so that the same code would scale from a laptop sample to the full multi-year corpus.
+      </p>
+      <p>
+        The downstream goal was to predict <code>fare_amount</code> from trip attributes (distance, time, pickup/drop-off zones, passenger count) — a regression problem nominally simple, but interesting precisely because the data engineering around it is where most of the work lives.
+      </p>
+    </div>
+
+    <!-- My Approach -->
+    <div class="detail-section">
+      <p class="detail-section-label">My Approach</p>
+      <p>
+        I structured the pipeline as four discrete stages, each owning a clear contract with the next: ingest → process → persist → analyse. Keeping the boundaries explicit means the heavy Spark stages can be re-run independently when the schema changes, and the downstream EDA can be replayed against the persisted artefact without re-touching the source Parquet.
+      </p>
+      <p>
+        For the cleaning step I deliberately leaned on Spark SQL rather than the DataFrame API where possible — SQL is the lingua franca of data engineering, easier to review, and easier to port if the pipeline ever moves to a SQL warehouse like BigQuery or Snowflake.
+      </p>
+      <p>
+        For the ML stage I used Spark ML's Pipeline + VectorAssembler + train/test split idiom and trained three regressors (Linear Regression, Decision Tree, Random Forest) on the cleaned, feature-engineered data to compare how much non-linearity actually buys on this dataset.
+      </p>
+    </div>
+
+    <!-- What I Built -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Built</p>
+
+      <p><strong style="color:var(--text)">Parquet ingest:</strong> Read both yellow and green taxi Parquet files directly into Spark DataFrames using <code>spark.read.parquet</code>. The schemas differ slightly between the two taxi types (green has trip_type and ehail_fee; yellow has airport_fee), so I aligned the relevant columns before any cross-type analysis.</p>
+
+      <p><strong style="color:var(--text)">Spark SQL cleaning:</strong> Filtered out trips with zero or negative fare/distance, null pickup/drop-off zones, and impossibly long trip durations. Standardised the pickup/drop-off datetime columns. Cast all numerics to consistent types so downstream joins and aggregations behaved predictably.</p>
+
+      <p><strong style="color:var(--text)">Persisted samples as SQLite:</strong> Saved cleaned, sampled outputs to <code>.db</code> files so the EDA stage and any companion demo could query without spinning up a Spark session. This is the same pattern you'd use in a production pipeline that hands curated subsets off to a BI layer.</p>
+
+      <p><strong style="color:var(--text)">EDA with Spark SQL:</strong> Eight aggregation queries answering questions the operator actually cares about — top pickup zones, hour-of-day distribution, fare-by-distance bins, weekend vs weekday volume, drop-off zones with the highest average fare, payment-method mix, average fare for long trips, and yellow-vs-green comparison.</p>
+
+      <p><strong style="color:var(--text)">Feature engineering:</strong> Derived <code>trip_duration_minutes</code> from pickup/drop-off timestamps, extracted hour-of-day and day-of-week categoricals, bucketed <code>trip_distance</code> into ordinal bins, and one-hot encoded payment_type for the regression stage.</p>
+
+      <p><strong style="color:var(--text)">Spark ML regression:</strong> Trained <code>LinearRegression</code>, <code>DecisionTreeRegressor</code>, and <code>RandomForestRegressor</code> through a Spark ML Pipeline on the cleaned, feature-engineered data. Evaluated each on a held-out test split using RMSE and R².</p>
+
+      <p><strong style="color:var(--text)">Companion query explorer:</strong> A small Gradio app that replays the EDA queries against the persisted SQLite samples — same SQL the Spark pipeline ran, just at a scale you can host on free CPU infrastructure.</p>
+
+      <div class="metric-row">
+        <div class="metric">
+          <p class="metric-label">Years Covered</p>
+          <p class="metric-value">2020–2024</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Pipeline Stages</p>
+          <p class="metric-value">4</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">EDA Queries</p>
+          <p class="metric-value">8</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="detail-section">
+      <p class="detail-section-label">Results</p>
+      <p>
+        The EDA confirmed a number of intuitive patterns and surfaced a couple of less obvious ones. Trip volume peaks sharply between 5pm and 7pm, with a smaller morning ridge. Average fare scales near-linearly with distance up to about 10 miles, then flattens for the longer airport-trip-heavy tail. Weekday trip counts substantially exceed weekend trips, but average fare is slightly higher on weekends — consistent with longer leisure trips replacing short commuter hops.
+      </p>
+      <p>
+        On the regression side, Random Forest outperformed both Linear Regression and the single Decision Tree on test-set R² — unsurprising given the non-linear interaction between distance, time, and zone. Linear Regression remained competitive on RMSE for trips inside the bulk of the distribution, but degraded sharply on the long-distance tail where its inability to model the flattening fare curve cost it.
+      </p>
+      <p>
+        Operationally, persisting cleaned outputs as SQLite turned out to be a much better choice than I expected. The companion query explorer demo runs on essentially zero infrastructure, queries return in milliseconds, and the SQL is portable to any system that speaks ANSI SQL.
+      </p>
+    </div>
+
+    <!-- What I Learned -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Learned</p>
+      <p>
+        Working in Spark made me a much more deliberate writer of SQL. With pandas, you can chain together steps that work on small data and break silently on large data — type coercions, NULL handling, joins that explode. Spark forces you to be explicit about every cast and every join key, which transfers nicely to any production environment.
+      </p>
+      <p>
+        The separation between processing (Spark) and serving (SQLite, in this case) is a pattern I'll keep using. Big-data tools are not the right surface for ad-hoc queries; persisting a curated subset to a smaller, faster store after the heavy work is done gives you the best of both worlds.
+      </p>
+      <p>
+        Cross-validating the same query in two different engines — Spark SQL on the full Parquet, then sqlite3 on the persisted sample — is a useful sanity check. Differences surface schema bugs, type-coercion bugs, and edge cases the smaller dataset hides.
+      </p>
+    </div>
+
+    <!-- Links -->
+    <div class="links-row">
+      <a href="https://github.com/kspinghar/nyc-taxi-explorer" target="_blank" rel="noopener noreferrer" class="link-item">GitHub →</a>
+      <a href="https://huggingface.co/spaces/kalspi/nyc-taxi-explorer" target="_blank" rel="noopener noreferrer" class="link-item">Live Demo →</a>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-text">Khalid Spinghar · Oslo · github.com/kspinghar</span>
+    <div class="footer-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="footer-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<!-- ── CONTACT MODAL ── -->
+<div class="modal-overlay" id="contact-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-title-text">Get in touch</span>
+      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <form id="contact-form" action="https://formsubmit.co/khalid.spinghar@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_subject" value="New message from portfolio" />
+      <div class="form-group">
+        <label class="form-label" for="contact-name">Name</label>
+        <input class="form-input" type="text" id="contact-name" name="name" required autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-email">Email</label>
+        <input class="form-input" type="email" id="contact-email" name="email" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-message">Message</label>
+        <textarea class="form-textarea" id="contact-message" name="message" rows="4" maxlength="1000" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message</button>
+      <p class="form-success-msg" id="form-success-msg">Thanks — I'll get back to you soon.</p>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

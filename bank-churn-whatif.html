@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bank Customer Churn — What-If Calculator — Khalid Spinghar</title>
+  <meta name="description" content="Logistic-regression churn model on a 10 000-row European retail-banking dataset, wrapped in a live what-if calculator." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+<!-- SVG icon sprite -->
+<svg width="0" height="0" style="display:none" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+  </symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </symbol>
+</svg>
+
+<!-- ── NAV ── -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Khalid Spinghar</a>
+    <div class="nav-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="nav-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <a href="index.html" class="detail-back">← Back to home</a>
+
+    <!-- Header -->
+    <div class="detail-header">
+      <h1 class="detail-title">Bank Customer Churn — What-If Calculator</h1>
+      <p class="detail-meta">May 2023 · 5 min read · BSc Applied Data Science, Noroff — Statistical Analysis Tools and Techniques</p>
+      <div class="detail-tags">
+        <span class="tag">Python</span>
+        <span class="tag">scikit-learn</span>
+        <span class="tag">pandas</span>
+        <span class="tag">logistic regression</span>
+        <span class="tag">interpretability</span>
+        <span class="tag">what-if analysis</span>
+      </div>
+    </div>
+
+    <!-- The Problem -->
+    <div class="detail-section">
+      <p class="detail-section-label">The Problem</p>
+      <p>
+        Customer churn — when a profitable customer cancels or walks away — is one of the most expensive failure modes in retail banking. Acquiring a replacement customer costs many times more than retaining an existing one, and the highest-value customers are typically also the most mobile. The question is whether routine customer attributes — age, balance, product holdings, satisfaction scores, activity flags — carry enough signal to identify customers at elevated churn risk early enough to do something about it.
+      </p>
+      <p>
+        The dataset was a 10 000-row European retail-banking sample with demographic, account, and engagement features, and a binary <code>Exited</code> label flagging customers who closed their accounts. The deliverable was a model plus the analytical narrative around what drives churn — the kind of artefact a retention team could actually argue with.
+      </p>
+    </div>
+
+    <!-- My Approach -->
+    <div class="detail-section">
+      <p class="detail-section-label">My Approach</p>
+      <p>
+        I chose Logistic Regression deliberately, even though tree-based models tend to win on raw accuracy for tabular churn problems. The reason is interpretability — for a retention team to act on the model's predictions, they need to be able to point at a customer and say <em>this is why we think they'll leave</em>. Logistic Regression hands you that directly: a signed coefficient per feature, applied to a standardized input, gives a clean per-customer decomposition of the prediction.
+      </p>
+      <p>
+        One important design choice was to <em>exclude the <code>Complain</code> feature</em>. In this dataset Complain correlates near-perfectly (~0.99) with Exited, which means a model that uses it is trivially accurate but operationally useless — by the time a customer has formally complained, the retention window is often closed. Excluding it forces the model to reason from the leading indicators (engagement, balance trajectory, product mix, satisfaction scores) that retention can actually intervene on.
+      </p>
+      <p>
+        The pipeline is a single scikit-learn <code>Pipeline</code> wrapping a <code>ColumnTransformer</code> — median-imputed StandardScaler for numerics, most-frequent-imputed OneHotEncoder for categoricals — feeding into <code>LogisticRegression(max_iter=1000)</code>. Performance is reported via 5-fold stratified cross-validation rather than a single split.
+      </p>
+    </div>
+
+    <!-- What I Built -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Built</p>
+
+      <p><strong style="color:var(--text)">Cleaned dataset:</strong> Loaded the 10 000-row sample, dropped CSV-export artefact columns, removed the leaky <code>Complain</code> column, and split features into eight numeric (CreditScore, Age, Tenure, Balance, NumOfProducts, EstimatedSalary, Satisfaction Score, Point Earned) and five categorical (Location, Gender, HasCreditCard, IsActiveMember, Card Type) inputs.</p>
+
+      <p><strong style="color:var(--text)">Sklearn pipeline:</strong> A single <code>Pipeline</code> chained the <code>ColumnTransformer</code> preprocessing through to the <code>LogisticRegression</code> classifier. Wrapping everything in a Pipeline means cross-validation cannot leak scaler statistics from validation folds into training folds.</p>
+
+      <p><strong style="color:var(--text)">5-fold stratified CV:</strong> Performance measured across five stratified folds to get an honest estimate that doesn't depend on a lucky split. Reported accuracy, F1, and ROC-AUC, with standard deviations — F1 is the one that matters here because the dataset is imbalanced (~20% churn rate) and a naive "predict stayed for everyone" classifier already gets ~80% accuracy.</p>
+
+      <p><strong style="color:var(--text)">Live what-if calculator:</strong> A Gradio app wrapping the trained pipeline. Pick a real customer from the dataset and their actual attributes populate the inputs. Then tweak anything — sliders for numeric features, dropdowns for categoricals — and watch the churn probability and driver breakdown update <em>live</em>, on every input change, without a Predict button. The interactivity is the point: it lets you ask counterfactual questions like "what if this customer became active again?" or "would lowering their balance trigger churn?"</p>
+
+      <p><strong style="color:var(--text)">Driver-contribution panel:</strong> For each prediction, the logistic-regression coefficients are applied to that customer's scaled feature values and aggregated back to the original feature names. The result is a per-customer breakdown of which inputs are pushing the prediction toward churn (red) or staying (green), with the magnitude visible on a horizontal bar chart.</p>
+
+      <div class="metric-row">
+        <div class="metric">
+          <p class="metric-label">Dataset Size</p>
+          <p class="metric-value">~10k rows</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Features Used</p>
+          <p class="metric-value">13</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">CV Folds</p>
+          <p class="metric-value">5-fold</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="detail-section">
+      <p class="detail-section-label">Results</p>
+      <p>
+        5-fold stratified CV yielded accuracy ≈ 0.81, ROC-AUC ≈ 0.77, and F1 ≈ 0.32 on the positive (churn) class. The F1 looks low at first glance but is honest — on an imbalanced dataset with the leaky Complain feature removed, predicting the minority class from leading indicators alone is genuinely hard, and a 0.77 AUC means the model is meaningfully ranking customers even when the default 0.5 threshold misses many of them.
+      </p>
+      <p>
+        The driver breakdown surfaced consistent and operationally useful patterns. <em>IsActiveMember = No</em>, <em>Age</em> in the upper third, and <em>Location = Germany</em> were the strongest churn-pushing factors. <em>NumOfProducts = 1</em> pushed up too, while <em>NumOfProducts = 2</em> was the strongest protective factor — consistent with the well-known engagement-product-count relationship in retail banking.
+      </p>
+      <p>
+        The most informative use of the what-if calculator is on customers the model gets wrong — e.g. a customer flagged as low-risk who in reality churned. Nudging their attributes to see what would have flipped the prediction surfaces exactly where the model's blind spots are, which is more useful than any single accuracy number.
+      </p>
+    </div>
+
+    <!-- What I Learned -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Learned</p>
+      <p>
+        The decision to exclude the Complain feature was the most important choice in the whole project. It's the difference between a model that demonstrates technical accuracy and a model that's useful to a retention team. Leaky features make benchmark numbers look great and operational performance terrible — a lesson that generalises far beyond banking.
+      </p>
+      <p>
+        Interpretability is not the same as transparency. Logistic regression coefficients are transparent — you can read them — but they're only interpretable in context. Showing a coefficient table is much less useful than showing a per-customer decomposition that demonstrates how that coefficient is actually working in a specific case. The what-if interactivity does exactly that.
+      </p>
+      <p>
+        Live reactivity changes how people engage with a model. A Predict button frames the model as something you query for an answer. A live-updating interface frames it as something you <em>play with</em>. The second framing produces much richer questions — and richer questions are usually how you find out what the model doesn't know.
+      </p>
+    </div>
+
+    <!-- Links -->
+    <div class="links-row">
+      <a href="https://github.com/kspinghar/bank-churn-whatif" target="_blank" rel="noopener noreferrer" class="link-item">GitHub →</a>
+      <a href="https://huggingface.co/spaces/kalspi/bank-churn-whatif" target="_blank" rel="noopener noreferrer" class="link-item">Live Demo →</a>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-text">Khalid Spinghar · Oslo · github.com/kspinghar</span>
+    <div class="footer-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="footer-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<!-- ── CONTACT MODAL ── -->
+<div class="modal-overlay" id="contact-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-title-text">Get in touch</span>
+      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <form id="contact-form" action="https://formsubmit.co/khalid.spinghar@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_subject" value="New message from portfolio" />
+      <div class="form-group">
+        <label class="form-label" for="contact-name">Name</label>
+        <input class="form-input" type="text" id="contact-name" name="name" required autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-email">Email</label>
+        <input class="form-input" type="email" id="contact-email" name="email" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-message">Message</label>
+        <textarea class="form-textarea" id="contact-message" name="message" rows="4" maxlength="1000" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message</button>
+      <p class="form-success-msg" id="form-success-msg">Thanks — I'll get back to you soon.</p>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

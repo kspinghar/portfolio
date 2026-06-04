@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Applied Data Mining &amp; Computational Vision — Khalid Spinghar</title>
+  <meta name="description" content="Four projects: network graph mining, NLP farm-ad classification, low-light image enhancement, and AR landmark recognition." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+<!-- SVG icon sprite -->
+<svg width="0" height="0" style="display:none" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+  </symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </symbol>
+</svg>
+
+<!-- ── NAV ── -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Khalid Spinghar</a>
+    <div class="nav-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="nav-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <a href="index.html" class="detail-back">← Back to home</a>
+
+    <!-- Header -->
+    <div class="detail-header">
+      <h1 class="detail-title">Applied Data Mining &amp; Computational Vision</h1>
+      <p class="detail-meta">Feb 2026 · 10 min read · MSc AI, Kristiania University College — Data Mining &amp; Computational Vision</p>
+      <div class="detail-tags">
+        <span class="tag">Python</span>
+        <span class="tag">OpenCV</span>
+        <span class="tag">NetworkX</span>
+        <span class="tag">NLP</span>
+        <span class="tag">scikit-learn</span>
+        <span class="tag">deep learning</span>
+        <span class="tag">AR</span>
+        <span class="tag">image enhancement</span>
+      </div>
+    </div>
+
+    <!-- The Problem -->
+    <div class="detail-section">
+      <p class="detail-section-label">The Problem</p>
+      <p>
+        Four assignments from the Data Mining &amp; Computational Vision module, unified into a single coherent portfolio. Rather than treating them as disconnected tasks, I approached each one as a study in a distinct corner of applied AI: graph-structured data, unstructured text, image quality degradation, and spatial recognition in augmented reality.
+      </p>
+      <p>
+        The four problems were: mining network structure from a movie dataset, classifying agricultural advertisements using NLP, enhancing dark images for downstream vision tasks, and building a landmark recognition system that works in an AR context. Together they cover the breadth of what "data mining and computer vision" actually means in practice.
+      </p>
+    </div>
+
+    <!-- My Approach -->
+    <div class="detail-section">
+      <p class="detail-section-label">My Approach</p>
+      <p>
+        Each project required a different framing. Network analysis is about relationships between entities, not attributes of individual ones. Text classification requires representing language numerically without losing semantic meaning. Image enhancement is a signal processing problem with a perceptual quality target. Landmark recognition under AR constraints requires robustness to viewing angle, lighting, and occlusion.
+      </p>
+      <p>
+        I worked through each problem independently before looking for connections — and found them in the shared need for a principled evaluation strategy, and in the consistent requirement to justify design choices rather than just report numbers.
+      </p>
+    </div>
+
+    <!-- What I Built — 4 sub-sections -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Built</p>
+
+      <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem;">Part 1 — Network Movies Analysis</p>
+      <p>
+        The movie dataset was modelled as a graph: nodes represent films or actors (depending on the analysis), edges represent connections (shared actors, sequels, genre overlap). NetworkX was used to compute graph-theoretic properties — degree distribution, clustering coefficients, shortest paths, and centrality measures.
+      </p>
+      <p>
+        The analysis revealed which films act as hubs in the network (high betweenness centrality), which clusters of movies are tightly connected within genres, and how far the network deviates from a random graph — a property relevant to understanding how recommendations and word-of-mouth propagate through film audiences.
+      </p>
+
+      <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem; margin-top:1.25rem;">Assignment 3 — Farm Advertisement Text Mining</p>
+      <p>
+        The task was to classify farm-related advertisements by category using natural language processing. Text preprocessing included lowercasing, punctuation removal, stop-word filtering, and stemming. Features were extracted using TF-IDF vectorisation, which weights terms by their document-relative frequency rather than raw count — reducing the dominance of common words.
+      </p>
+      <p>
+        Classification models were trained on the TF-IDF representation and evaluated by precision, recall, and F1 per category. The analysis also included exploratory text mining to surface the most discriminative terms for each advertisement class — giving a human-readable explanation of what the model learned to look for.
+      </p>
+
+      <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem; margin-top:1.25rem;">Assignment 4 — Dark Image Enhancement</p>
+      <p>
+        Low-light images suffer from noise, loss of detail in shadow regions, and colour distortion — all of which degrade the performance of downstream computer vision systems. The goal was to recover perceptually and computationally useful images from dark inputs.
+      </p>
+      <p>
+        I implemented and compared classical enhancement techniques (histogram equalisation, CLAHE — contrast-limited adaptive histogram equalisation) against deep learning approaches. CLAHE, which applies equalisation locally in tiles rather than globally, avoided the artefact-heavy outputs that global equalisation produces in high-contrast scenes. The deep learning pipeline was trained end-to-end to map dark inputs to clean references, with the model learning spatial detail recovery implicitly.
+      </p>
+      <p>
+        Output quality was assessed using PSNR (peak signal-to-noise ratio) and SSIM (structural similarity index), which measure pixel-level accuracy and perceptual structure preservation respectively. A full 6.1 MB report documented the methodology and results with visual comparisons across all approaches.
+      </p>
+
+      <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem; margin-top:1.25rem;">Assignment 5 — AR Landmark Recognition</p>
+      <p>
+        The task was to build a system that recognises landmarks (buildings, sculptures, signage) from images captured in an augmented reality context — which means handling variable viewing angles, partial occlusion, reflections, and changing light conditions that would break a naive template-matching approach.
+      </p>
+      <p>
+        Feature extraction used local descriptors robust to affine transformations. A matching pipeline compared query image features to a reference database and returned the best candidate along with a confidence estimate. The AR overlay component drew recognition results directly onto the live frame.
+      </p>
+      <p>
+        The 3.1 MB notebook and 2.1 MB report document the full pipeline, including ablation experiments testing which descriptor and matching strategy performed best under different degradation conditions.
+      </p>
+
+      <div class="metric-row">
+        <div class="metric">
+          <p class="metric-label">Notebooks</p>
+          <p class="metric-value">4</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Reports</p>
+          <p class="metric-value">4 PDFs</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Domains</p>
+          <p class="metric-value">Graph · NLP · CV · AR</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="detail-section">
+      <p class="detail-section-label">Results</p>
+      <p>
+        The network analysis surfaced clear hub structure in the movie graph — a small number of highly-connected films acted as bridges between otherwise separate clusters, consistent with the scale-free properties observed in real-world entertainment networks.
+      </p>
+      <p>
+        The text classifier achieved strong per-category F1 scores on the farm advertisement dataset, with the most discriminative features being domain-specific agricultural terms — validating that TF-IDF captured meaningful signal rather than noise.
+      </p>
+      <p>
+        CLAHE significantly outperformed global histogram equalisation on dark image enhancement, particularly in preserving local contrast in shadow regions without over-amplifying noise. The deep learning model improved further on CLAHE, recovering fine texture detail that classical methods lost.
+      </p>
+      <p>
+        The AR landmark system achieved reliable recognition across the test set under standard conditions, with performance degrading gracefully as occlusion and viewpoint variation increased — a more realistic result than the near-perfect numbers sometimes reported on clean benchmarks.
+      </p>
+      <p style="color:var(--muted); font-size:0.82rem; font-family:var(--font-mono)">
+        Note: full metric tables are in the individual assignment reports linked below.
+      </p>
+    </div>
+
+    <!-- What I Learned -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Learned</p>
+      <p>
+        Working across four different problem types in one submission forced me to confront how domain-specific "good evaluation" really is. PSNR and SSIM mean nothing for graph analysis; F1 per class means nothing for image quality. Choosing the right evaluation criterion is as important as choosing the right model, and it requires actually understanding the problem rather than applying a standard template.
+      </p>
+      <p>
+        The image enhancement project gave me a durable mental model for when classical methods beat deep learning: when the transformation is well-understood mathematically, has limited degrees of freedom, and the dataset is small. CLAHE has a clear prior — local contrast normalisation — that deep models have to discover from scratch. On small training sets, that prior wins.
+      </p>
+      <p>
+        The AR project was where I most directly confronted the gap between academic benchmarks and real-world deployment. Recognition performance on clean, frontal, well-lit images is not a useful number. The useful number is how much performance degrades under the conditions users will actually create — and designing test sets that reflect that is harder than building the model.
+      </p>
+    </div>
+
+    <!-- Links -->
+    <div class="links-row">
+      <a href="https://github.com/kspinghar/applied-dmcv" target="_blank" rel="noopener noreferrer" class="link-item">GitHub →</a>
+      <a href="https://huggingface.co/spaces/kalspi/applied-dmcv" target="_blank" rel="noopener noreferrer" class="link-item">Live Demo →</a>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-text">Khalid Spinghar · Oslo · github.com/kspinghar</span>
+    <div class="footer-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="footer-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<!-- ── CONTACT MODAL ── -->
+<div class="modal-overlay" id="contact-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-title-text">Get in touch</span>
+      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <form id="contact-form" action="https://formsubmit.co/khalid.spinghar@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_subject" value="New message from portfolio" />
+      <div class="form-group">
+        <label class="form-label" for="contact-name">Name</label>
+        <input class="form-input" type="text" id="contact-name" name="name" required autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-email">Email</label>
+        <input class="form-input" type="email" id="contact-email" name="email" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-message">Message</label>
+        <textarea class="form-textarea" id="contact-message" name="message" rows="4" maxlength="1000" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message</button>
+      <p class="form-success-msg" id="form-success-msg">Thanks — I'll get back to you soon.</p>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

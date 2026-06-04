@@ -1,0 +1,12 @@
+# Private working files — not part of the website
+.claude/
+*.docx
+claude-code-update-prompt.md
+xai-ids-demo-prompt.md
+
+# NorskOrd is its own repo + GitHub Pages site (nested git repo)
+norskord/
+
+# OS cruft
+.DS_Store
+Thumbs.db

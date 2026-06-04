@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Color Detection Tool | K|Intel</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <script src="https://kit.fontawesome.com/a3b5e2e058.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <a href="index.html" class="logo" id="logo"></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="about.html">ABOUT</a></li>
+        <li><a href="projects.html">PROJECTS</a></li>
+        <li><a href="resume.html">RESUME</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="top"></div>
+
+  <!-- Project Hero Section -->
+  <section class="page-section">
+    <h1 class="page-name">Color Detection Tool</h1>
+    <p class="quote">
+      OpenCV tool that identifies colors from camera feed or static images.
+    </p>
+
+    <!-- Project Details -->
+    <div class="project-details scroll-fade">
+
+      <h3>OVERVIEW</h3>
+      <p>
+        This Python-based application uses OpenCV to detect and label colors in real-time or from uploaded images. 
+        It consists of two scripts — one handling static images, and the other extending functionality to a live webcam feed. 
+        RGB values from selected pixels are matched to named color values using CSV data and displayed on-screen with their closest matching names.
+      </p>
+
+      <h3>KEY FEATURES & IMPLEMENTATION</h3>
+      <p>
+        • Real-time color detection using OpenCV and NumPy<br>
+        • Mouse click event tracking to fetch pixel RGB values<br>
+        • CSV-based color name mapping via Euclidean distance<br>
+        • Hex conversion and on-screen color label overlays<br>
+        • Works with both static images and live webcam input
+      </p>
+
+      <h3>TECHNOLOGIES USED</h3>
+      <p>
+        Python, OpenCV, NumPy, CSV
+      </p>
+
+      <h3>CHALLENGES</h3>
+      <p>
+        • Handling inconsistent lighting in live camera mode<br>
+        • Efficient color matching to named color datasets<br>
+        • Ensuring labels remain readable against different backgrounds
+      </p>
+
+      <h3>LEARNINGS & IMPACT</h3>
+      <p>
+        This project strengthened my understanding of computer vision fundamentals and OpenCV workflows. 
+        It also gave me hands-on practice with color models, pixel-level operations, and integrating user interactions in real-time applications.
+      </p>
+
+      <h3>SCREENSHOTS</h3>
+
+      <div class="screenshot-wrapper">
+        <img src="images/read_colour_files_colour_tool.png" alt="Read Color File Function - ColorTool.py" class="project-screenshot wide-screenshot" />
+        <p class="caption"><strong>Figure 1.</strong> Function from <code>ColorTool.py</code> responsible for reading and converting named color data from a text file.</p>
+      </div>
+
+      <div class="screenshot-wrapper">
+        <img src="images/read_colour_files_on_cam.png" alt="Read Color File Function - ColorsOnCam.py" class="project-screenshot wide-screenshot" />
+        <p class="caption"><strong>Figure 2.</strong> Similar function in <code>ColorsOnCam.py</code> modified to locate the text file inside the active webcam folder.</p>
+      </div>
+
+      <div class="screenshot-wrapper">
+        <img src="images/rgb_2_hex.png" alt="RGB to Hex Conversion Function" class="project-screenshot wide-screenshot" />
+        <p class="caption"><strong>Figure 3.</strong> The <code>rgb_2_hex</code> function converts RGB tuples to hexadecimal format for color display and overlay.</p>
+      </div>
+
+      <div class="screenshot-wrapper">
+        <img src="images/on_mouse.png" alt="Mouse Click Event Handler" class="project-screenshot wide-screenshot" />
+        <p class="caption"><strong>Figure 4.</strong> Captures pixel position and RGB values when the user clicks anywhere on the image or frame.</p>
+      </div>
+
+      <div class="screenshot-wrapper">
+        <img src="images/mouse_event.png" alt="Mouse Event Handling in Object-Oriented Context" class="project-screenshot wide-screenshot" />
+        <p class="caption"><strong>Figure 5.</strong> Object-oriented version of mouse event handling from the webcam-based file, allowing precise RGB sampling.</p>
+      </div>
+
+      <div class="screenshot-wrapper">
+        <img src="images/find_closest_colour.png" alt="Find Closest Color Function" class="project-screenshot wide-screenshot" />
+        <p class="caption"><strong>Figure 6.</strong> Core logic that calculates the nearest color name match from dataset using absolute RGB distance.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-icons">
+      <div class="icon-wrapper">
+        <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank">
+          <img src="images/linkedin_icon.png" alt="LinkedIn" class="footer-icon">
+          <span class="tooltip">LinkedIn</span>
+        </a>
+      </div>
+      <div class="icon-wrapper">
+        <a href="contact.html">
+          <img src="images/contact_icon.png" alt="Contact" class="footer-icon">
+          <span class="tooltip">Contact</span>
+        </a>
+      </div>
+      <div class="icon-wrapper">
+        <a href="resume.html">
+          <img src="images/resume_icon.png" alt="Resume" class="footer-icon">
+          <span class="tooltip">Resume</span>
+        </a>
+      </div>
+    </div>
+    <div style="margin-top: 1.5rem; font-size: 0.9rem;">
+      © 2025 <strong>K|Intel</strong>. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

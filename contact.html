@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | K|Intel</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <script src="https://kit.fontawesome.com/a3b5e2e058.js" crossorigin="anonymous"></script>
+  <style>
+    /* Scoped adjustments for contact page only */
+    .contact-section {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    .contact-section .intro-text {
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    form#contact-form {
+      background-color: #f9f9f9;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      text-align: left;
+    }
+
+    form#contact-form label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    form#contact-form input,
+    form#contact-form textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    form#contact-form button {
+      background-color: #4ab3f4;
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+      transition: background-color 0.3s ease;
+    }
+
+    form#contact-form button:hover {
+      background-color: #3399ff;
+    }
+
+    .form-success {
+      color: green;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .contact-info {
+      margin-top: 2.5rem;
+      font-size: 1rem;
+    }
+
+    .contact-info a {
+      color: #4ab3f4;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Remove bottom whitespace */
+    body {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <a href="index.html" class="logo" id="logo"></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="about.html">ABOUT</a></li>
+        <li><a href="projects.html">PROJECTS</a></li>
+        <li><a href="resume.html">RESUME</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Contact Section -->
+  <section class="page-section contact-section">
+    <h1 class="page-name">Get in Touch</h1>
+    <p class="intro-text">If you'd like to connect, feel free to use the form below or reach out via LinkedIn.</p>
+
+    <form id="contact-form" action="https://formsubmit.co/khalid.spinghar@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New message from K|Intel site">
+      <input type="hidden" name="_next" value="">
+
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" required>
+
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required>
+
+      <label for="message">Message</label>
+      <textarea name="message" id="message" rows="5" maxlength="500" required></textarea>
+
+      <button type="submit">Send Message</button>
+      <p class="form-success" id="form-success" style="display: none;">Thanks! Your message has been sent.</p>
+    </form>
+
+    <div class="contact-info">
+      <p>🔗 <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank">Connect on LinkedIn</a></p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-icons">
+      <div class="icon-wrapper">
+        <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer">
+          <img src="images/linkedin_icon.png" alt="LinkedIn" class="footer-icon">
+          <span class="tooltip">LinkedIn</span>
+        </a>
+      </div>
+      <div class="icon-wrapper">
+        <a href="contact.html">
+          <img src="images/contact_icon.png" alt="Contact" class="footer-icon">
+          <span class="tooltip">Contact</span>
+        </a>
+      </div>
+      <div class="icon-wrapper">
+        <a href="resume.html">
+          <img src="images/resume_icon.png" alt="Resume" class="footer-icon">
+          <span class="tooltip">Resume</span>
+        </a>
+      </div>
+    </div>
+    <div style="margin-top: 1.5rem; font-size: 0.9rem;">
+      © 2025 <strong>K|Intel</strong>. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Logo animation + Form logic -->
+  <script src="script.js"></script>
+  <script>
+    const form = document.getElementById('contact-form');
+    const successMsg = document.getElementById('form-success');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          form.reset();
+          successMsg.style.display = 'block';
+        } else {
+          alert('Something went wrong. Please try again later.');
+        }
+      }).catch(error => {
+        console.error('Form error:', error);
+        alert('An error occurred. Please check your internet connection and try again.');
+      });
+    });
+  </script>
+
+</body>
+</html>
