@@ -7,6 +7,9 @@ xai-ids-demo-prompt.md
 # NorskOrd is its own repo + GitHub Pages site (nested git repo)
 norskord/
 
+# Archived old-design pages — kept locally, never deployed
+archive/
+
 # OS cruft
 .DS_Store
 Thumbs.db
