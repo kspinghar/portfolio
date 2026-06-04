@@ -1,2 +1,30 @@
 http://*  https://:splat  301!
 www.kintelanalytics.com  https://kintelanalytics.com  301!
+
+# Old pages removed in the redesign — bounce to the homepage instead of 404
+/about                  /  301
+/about.html             /  301
+/projects               /  301
+/projects.html          /  301
+/resume                 /  301
+/resume.html            /  301
+/contact                /  301
+/contact.html           /  301
+/abc-bank-oop-system        /  301
+/abc-bank-oop-system.html   /  301
+/color-detection-tool       /  301
+/color-detection-tool.html  /  301
+/netflix-imdb-ratings       /  301
+/netflix-imdb-ratings.html  /  301
+/superstore-dashboard       /  301
+/superstore-dashboard.html  /  301
+/bank-customer-churn        /  301
+/bank-customer-churn.html   /  301
+/train-ticket-booking       /  301
+/train-ticket-booking.html  /  301
+/steel-fault-classifier       /  301
+/steel-fault-classifier.html  /  301
+/ufo-dashboard          /  301
+/ufo-dashboard.html     /  301
+/task-scheduler-app       /  301
+/task-scheduler-app.html  /  301
