@@ -53,7 +53,7 @@
     <!-- Header -->
     <div class="detail-header">
       <h1 class="detail-title">SPY Volatility Forecasting — CNN/LSTM</h1>
-      <p class="detail-meta">Feb 2025 · 6 min read · MSc AI, Kristiania University College — Advanced Machine Intelligence and Deep Learning</p>
+      <p class="detail-meta">Feb 2026 · 6 min read · MSc AI, Kristiania University College — Advanced Machine Intelligence and Deep Learning</p>
       <div class="detail-tags">
         <span class="tag">Python</span>
         <span class="tag">TensorFlow</span>
@@ -82,7 +82,7 @@
     <div class="detail-section">
       <p class="detail-section-label">My Approach</p>
       <p>
-        I worked with 30 years of daily SPY closing prices (January 1993 to February 2026 — 8,318 trading days), computing log returns as the primary signal. The target variable is forward realized volatility measured over two horizons: 5 trading days (vol_5) and 10 trading days (vol_10). This is a regression problem, not classification.
+        I worked with 33 years of daily SPY closing prices (January 1993 to February 2026 — 8,318 trading days), computing log returns as the primary signal. The target variable is forward realized volatility measured over two horizons: 5 trading days (vol_5) and 10 trading days (vol_10). This is a regression problem, not classification.
       </p>
       <p>
         To structure the data for supervised learning, I used a 120-day lookback window: each sample consists of the last 120 log returns as input features, with the corresponding forward volatility as the label. This produced 8,187 usable samples. The split was strictly chronological — 70% train, 15% validation, 15% test — to prevent any lookahead leakage. Standardization was fitted on the training set only and applied forward.
