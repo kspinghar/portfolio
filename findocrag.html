@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinDocRAG: Grounded Q&amp;A over Annual Reports · Khalid Spinghar</title>
+  <meta name="description" content="Grounded question answering over the 2025 annual reports of Equinor, DNB and Norsk Hydro, with page citations, abstention and a human-verified evaluation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+<!-- SVG icon sprite -->
+<svg width="0" height="0" style="display:none" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+  </symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </symbol>
+</svg>
+
+<!-- ── NAV ── -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Khalid Spinghar</a>
+    <div class="nav-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="nav-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <a href="index.html" class="detail-back">← Back to home</a>
+
+    <!-- Header -->
+    <div class="detail-header">
+      <h1 class="detail-title">FinDocRAG: Grounded Q&amp;A over Annual Reports</h1>
+      <p class="detail-meta">Oct 2026 · 7 min read · personal project</p>
+      <div class="detail-tags">
+        <span class="tag">Python</span>
+        <span class="tag">RAG</span>
+        <span class="tag">Claude API</span>
+        <span class="tag">FAISS</span>
+        <span class="tag">BM25</span>
+        <span class="tag">LLM evaluation</span>
+        <span class="tag">Gradio</span>
+      </div>
+    </div>
+
+    <!-- The Problem -->
+    <div class="detail-section">
+      <p class="detail-section-label">The Problem</p>
+      <p>
+        Language models answer confidently whether or not the documents support the answer. In finance and advisory work that is the wrong way round: a wrong figure with no source is worse than no answer at all. The question I wanted to answer was whether a small system could read 977 pages of annual reports from Equinor, DNB and Norsk Hydro, cite the page behind every claim, and refuse when the reports do not contain the answer.
+      </p>
+      <p>
+        The second question mattered more to me: could I <em>prove</em> it works with measurement, rather than with a handful of good-looking demo answers?
+      </p>
+    </div>
+
+    <!-- My Approach -->
+    <div class="detail-section">
+      <p class="detail-section-label">My Approach</p>
+      <p>
+        I built the evaluation before trusting any result. Every question has a reference answer that I checked by hand against a highlighted crop of the source page. One question was dropped and four were corrected during that check. Every decision is recorded in the repository.
+      </p>
+      <p>
+        I kept two question sets. A <strong style="color:var(--text)">development set</strong> of 39 questions (29 answerable, 10 that must be refused) was used to find failures and choose fixes. A <strong style="color:var(--text)">held-out set</strong> of 20 new questions, several of them deliberate traps, was written and verified only after all changes and then run once with the system frozen. That second number is the honest one.
+      </p>
+      <p>
+        When the system refuses, it does not just say no. It says the answer is not in the reports and then explains, with citations, what related information they do contain, for example an annual average instead of a closing price. Those explanations are checked for grounding like any other answer, so a made-up explanation costs points.
+      </p>
+    </div>
+
+    <!-- What I Built -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Built</p>
+
+      <p><strong style="color:var(--text)">Ingestion:</strong> The three PDFs are parsed page by page and split into 1,377 chunks of about 800 tokens, each tied to its company and page so that every citation points to an exact page.</p>
+
+      <p><strong style="color:var(--text)">Hybrid retrieval:</strong> Local <code>bge-small</code> embeddings in FAISS combined with BM25 keyword search through reciprocal rank fusion. If a question names one company, only that report is searched. Claude Haiku then reranks the top 30 candidates down to the 8 most useful passages.</p>
+
+      <p><strong style="color:var(--text)">Grounded answering:</strong> Claude answers only from those passages, with an inline <code>[Company, p.X]</code> citation for every claim, or abstains with a cited explanation.</p>
+
+      <p><strong style="color:var(--text)">Evaluation harness:</strong> An LLM judge scores correctness and groundedness. Citation validity, figure-on-cited-page and retrieval hit rate are checked programmatically with no model involved. Abstention is scored in both directions: refusing what it should, and only that. All calls are cached and keyed on the prompts, so a changed prompt can never reuse a stale result.</p>
+
+      <p><strong style="color:var(--text)">Live app:</strong> A Gradio app with an Ask tab (answers with page citations, a clear abstention badge, and the retrieved passages so anyone can check the grounding) and an Evaluation tab with the scorecards and the known limitations.</p>
+
+      <div class="metric-row">
+        <div class="metric">
+          <p class="metric-label">Report pages</p>
+          <p class="metric-value">977</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Verified questions</p>
+          <p class="metric-value">59</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Held-out correctness</p>
+          <p class="metric-value">93%</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="detail-section">
+      <p class="detail-section-label">Results</p>
+      <p>
+        The first honest baseline, using embedding search only, scored 81% correctness and refused three questions it should have answered. The triage was the most useful part of the project: five of the six failures were <em>retrieval</em> misses, not answering mistakes. The right page never reached the model. All five were table pages, an income statement and headcount and production tables, which embed poorly because they are mostly numbers but contain the exact words of the question. That pointed straight at keyword search.
+      </p>
+      <p>
+        After one improvement round (hybrid search, the company filter and reranking) the development set reached 100%. Because the fixes were chosen on that set, I treat that number as optimistic. On the 20 unseen held-out questions the system scored <strong style="color:var(--text)">93.3% correctness (14 of 15)</strong>, refused all 5 trap questions, and all 24 of its citations pointed to pages it had actually retrieved.
+      </p>
+      <p>
+        The one held-out failure is instructive. DNB's 2018 dividend exists only in a bar chart. The right page was retrieved, but converting the chart to text loses the link between each year and its value, so the system abstained rather than guess. That is the failure mode I would rather have.
+      </p>
+    </div>
+
+    <!-- What I Learned -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Learned</p>
+      <p>
+        Measure retrieval on its own. Without a retrieval hit-rate metric I would have spent time on prompts when the real problem was that the model never saw the right page.
+      </p>
+      <p>
+        The answer key can be wrong too. One "wrong" answer turned out to be a figure the report states on a different basis on another page. Fixing the key, openly and after the baseline, was more honest than tuning the system to match it.
+      </p>
+      <p>
+        LLM judges are lenient in places. On one question the correctness judge accepted an answer that treated two different figures as the same, and only the groundedness check caught it. Several independent checks, some with no model at all, are worth more than one clever judge. And a held-out set run once is what turns "it works on my questions" into a number I can stand behind.
+      </p>
+    </div>
+
+    <!-- Links -->
+    <div class="links-row">
+      <a href="https://github.com/kspinghar/findocrag" target="_blank" rel="noopener noreferrer" class="link-item">GitHub →</a>
+      <a href="https://huggingface.co/spaces/kalspi/findocrag" target="_blank" rel="noopener noreferrer" class="link-item">Live Demo →</a>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-text">Khalid Spinghar · Oslo · github.com/kspinghar</span>
+    <div class="footer-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="footer-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<!-- ── CONTACT MODAL ── -->
+<div class="modal-overlay" id="contact-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-title-text">Get in touch</span>
+      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <form id="contact-form" action="https://formsubmit.co/khalid.spinghar@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_subject" value="New message from portfolio" />
+      <div class="form-group">
+        <label class="form-label" for="contact-name">Name</label>
+        <input class="form-input" type="text" id="contact-name" name="name" required autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-email">Email</label>
+        <input class="form-input" type="email" id="contact-email" name="email" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-message">Message</label>
+        <textarea class="form-textarea" id="contact-message" name="message" rows="4" maxlength="1000" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message</button>
+      <p class="form-success-msg" id="form-success-msg">Thanks — I'll get back to you soon.</p>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

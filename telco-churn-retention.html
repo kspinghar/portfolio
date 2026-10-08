@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Telco Churn Retention · Khalid Spinghar</title>
+  <meta name="description" content="Churn drivers, value x risk targeting, and A/B test and uplift analysis for retention campaigns, with a live demo." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+<!-- SVG icon sprite -->
+<svg width="0" height="0" style="display:none" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+  </symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </symbol>
+</svg>
+
+<!-- ── NAV ── -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Khalid Spinghar</a>
+    <div class="nav-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="nav-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <a href="index.html" class="detail-back">← Back to home</a>
+
+    <!-- Header -->
+    <div class="detail-header">
+      <h1 class="detail-title">Telco Churn Retention: Who to Target, and How to Prove It Worked</h1>
+      <p class="detail-meta">Oct 2026 · 7 min read · personal project</p>
+      <div class="detail-tags">
+        <span class="tag">Python</span>
+        <span class="tag">scikit-learn</span>
+        <span class="tag">SciPy</span>
+        <span class="tag">SHAP</span>
+        <span class="tag">A/B testing</span>
+        <span class="tag">uplift modelling</span>
+        <span class="tag">Gradio</span>
+      </div>
+    </div>
+
+    <!-- The Problem -->
+    <div class="detail-section">
+      <p class="detail-section-label">The Problem</p>
+      <p>
+        A churn model tells you who is likely to leave. It does not tell you who a retention offer will keep. A retention team that sends offers to the customers with the highest churn score can spend most of its budget on people who would leave anyway, or on people who would have stayed without an offer.
+      </p>
+      <p>
+        So the project asks three questions in order: who is likely to leave and how much revenue that puts at risk, who should actually be targeted, and how to design and read the experiment that proves a campaign worked. All data is public sample data: the IBM Telco sample (a fictional company) and the Hillstrom email test (a real randomised retail experiment).
+      </p>
+    </div>
+
+    <!-- My Approach -->
+    <div class="detail-section">
+      <p class="detail-section-label">My Approach</p>
+      <p>
+        I shipped a logistic regression rather than gradient boosting. Boosting was 0.006 ROC-AUC ahead on the hold-out set, which is less than one standard deviation across cross-validation folds, and the logistic model lets every score be explained exactly. All preprocessing sits inside scikit-learn pipelines, and every customer in the targeting grid is scored by a model that did not see them.
+      </p>
+      <p>
+        For the experiment I fixed the primary comparison and metric before computing any result, checked that the randomisation held, and reported Holm-adjusted p-values across the six tests. The one finding I only spotted after seeing the results is labelled as a hypothesis for the next test, not a result.
+      </p>
+    </div>
+
+    <!-- What I Built -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Built</p>
+
+      <p><strong style="color:var(--text)">Churn drivers:</strong> Contract type, tenure and internet service dominate. Month-to-month customers churn at 43% against 3% on two-year contracts, and 53% of customers leave in their first six months.</p>
+
+      <p><strong style="color:var(--text)">Model and targeting:</strong> Hold-out ROC-AUC 0.84. Contacting the top 20% of customers by score reaches 49.7% of all churners, 2.5 times a random list of the same size.</p>
+
+      <p><strong style="color:var(--text)">Value x risk grid:</strong> Combining churn risk with what each customer pays shows where the money is. The "Save first" segment holds 18% of customers but 53% of the revenue at risk.</p>
+
+      <p><strong style="color:var(--text)">A/B test and uplift:</strong> On the 64,000-customer Hillstrom test, the women's email lifted the visit rate by 4.5 points (95% CI 3.9 to 5.2). Emailing the 30% with the highest predicted uplift gave 8.4 points of lift, against 3.4 for a "most likely to respond" list, which did no better than emailing everyone.</p>
+
+      <p><strong style="color:var(--text)">Retention test plan:</strong> Sample size and power for testing an offer on the "Save first" segment, plus a clearly labelled simulation that shows when uplift targeting beats churn-risk targeting and when it does not.</p>
+
+      <p><strong style="color:var(--text)">Live app:</strong> A Gradio app with a what-if risk scorer with plain-word reasons, the driver charts, a targeting grid with a "contact the top X%" slider, and the experiment results with a sample size calculator.</p>
+
+      <div class="metric-row">
+        <div class="metric">
+          <p class="metric-label">Customers scored</p>
+          <p class="metric-value">7,043</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Experiment size</p>
+          <p class="metric-value">64,000</p>
+        </div>
+        <div class="metric">
+          <p class="metric-label">Uplift vs propensity</p>
+          <p class="metric-value">8.4 vs 3.4 pts</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="detail-section">
+      <p class="detail-section-label">Results</p>
+      <p>
+        The experiment passed its validity checks: the arm sizes matched the design (sample ratio p = 0.90) and the largest covariate imbalance was 0.014, well under the usual 0.1 limit. The visit lift was more than five times the smallest effect the test could detect.
+      </p>
+      <p>
+        The most practical result came from the test plan. With 634 customers per arm, a retention test on "Save first" alone can only detect a churn drop of 7.6 points or more. Detecting a realistic 2 to 5 point effect would need between 1,457 and 8,945 customers per arm. Knowing that before running a campaign saves a team from an inconclusive test.
+      </p>
+    </div>
+
+    <!-- What I Learned -->
+    <div class="detail-section">
+      <p class="detail-section-label">What I Learned</p>
+      <p>
+        Reaching a churner is not the same as saving one. The propensity list looked sensible and did no better than random, because it picked people who would visit anyway. Ranking by predicted uplift is the step most churn projects skip.
+      </p>
+      <p>
+        A model choice should be justified against the noise. A 0.006 AUC gain inside the cross-validation spread is not a reason to give up exact explanations.
+      </p>
+      <p>
+        Simulations need clear labels. The simulated part shows a mechanism, not a fact, and in one scenario the simple risk list wins. Saying so openly is what makes the real-data results credible.
+      </p>
+    </div>
+
+    <!-- Links -->
+    <div class="links-row">
+      <a href="https://github.com/kspinghar/telco-churn-retention" target="_blank" rel="noopener noreferrer" class="link-item">GitHub →</a>
+      <a href="https://huggingface.co/spaces/kalspi/telco-churn-retention" target="_blank" rel="noopener noreferrer" class="link-item">Live Demo →</a>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-text">Khalid Spinghar · Oslo · github.com/kspinghar</span>
+    <div class="footer-icons">
+      <a href="https://github.com/kspinghar" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="GitHub">
+        <svg aria-hidden="true"><use href="#i-github"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/khalid-spinghar-17944059/" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="LinkedIn">
+        <svg aria-hidden="true"><use href="#i-linkedin"/></svg>
+      </a>
+      <button class="footer-icon" data-open-modal aria-label="Contact">
+        <svg aria-hidden="true"><use href="#i-mail"/></svg>
+      </button>
+    </div>
+  </div>
+</footer>
+
+<!-- ── CONTACT MODAL ── -->
+<div class="modal-overlay" id="contact-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-title-text">Get in touch</span>
+      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <form id="contact-form" action="https://formsubmit.co/khalid.spinghar@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_subject" value="New message from portfolio" />
+      <div class="form-group">
+        <label class="form-label" for="contact-name">Name</label>
+        <input class="form-input" type="text" id="contact-name" name="name" required autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-email">Email</label>
+        <input class="form-input" type="email" id="contact-email" name="email" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="contact-message">Message</label>
+        <textarea class="form-textarea" id="contact-message" name="message" rows="4" maxlength="1000" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message</button>
+      <p class="form-success-msg" id="form-success-msg">Thanks — I'll get back to you soon.</p>
+    </form>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
