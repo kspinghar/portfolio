@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Applied Data Mining &amp; Computational Vision — Khalid Spinghar</title>
+  <title>Applied Data Mining &amp; Computational Vision · Khalid Spinghar</title>
   <meta name="description" content="Four projects: network graph mining, NLP farm-ad classification, low-light image enhancement, and AR landmark recognition." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -53,7 +53,7 @@
     <!-- Header -->
     <div class="detail-header">
       <h1 class="detail-title">Applied Data Mining &amp; Computational Vision</h1>
-      <p class="detail-meta">Oct 2025 · 10 min read · MSc AI, Kristiania University College — Data Mining &amp; Computational Vision</p>
+      <p class="detail-meta">Oct 2025 · 10 min read · MSc AI, Kristiania University College: Data Mining &amp; Computational Vision</p>
       <div class="detail-tags">
         <span class="tag">Python</span>
         <span class="tag">OpenCV</span>
@@ -84,44 +84,44 @@
         Each project required a different framing. Network analysis is about relationships between entities, not attributes of individual ones. Text classification requires representing language numerically without losing semantic meaning. Image enhancement is a signal processing problem with a perceptual quality target. Landmark recognition under AR constraints requires robustness to viewing angle, lighting, and occlusion.
       </p>
       <p>
-        I worked through each problem independently before looking for connections — and found them in the shared need for a principled evaluation strategy, and in the consistent requirement to justify design choices rather than just report numbers.
+        I worked through each problem independently before looking for connections, and found them in the shared need for a principled evaluation strategy, and in the consistent requirement to justify design choices rather than just report numbers.
       </p>
     </div>
 
-    <!-- What I Built — 4 sub-sections -->
+    <!-- What I Built: 4 sub-sections -->
     <div class="detail-section">
       <p class="detail-section-label">What I Built</p>
 
-      <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem;">Part 1 — Network Movies Analysis</p>
+      <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem;">Part 1: Network Movies Analysis</p>
       <p>
-        The movie dataset was modelled as a graph: nodes represent films or actors (depending on the analysis), edges represent connections (shared actors, sequels, genre overlap). NetworkX was used to compute graph-theoretic properties — degree distribution, clustering coefficients, shortest paths, and centrality measures.
+        The movie dataset was modelled as a graph: nodes represent films or actors (depending on the analysis), edges represent connections (shared actors, sequels, genre overlap). NetworkX was used to compute graph-theoretic properties: degree distribution, clustering coefficients, shortest paths, and centrality measures.
       </p>
       <p>
-        The analysis revealed which films act as hubs in the network (high betweenness centrality), which clusters of movies are tightly connected within genres, and how far the network deviates from a random graph — a property relevant to understanding how recommendations and word-of-mouth propagate through film audiences.
-      </p>
-
-      <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem; margin-top:1.25rem;">Part 2 — Farm Advertisement Text Mining</p>
-      <p>
-        The task was to classify farm-related advertisements by category using natural language processing. Text preprocessing included lowercasing, punctuation removal, stop-word filtering, and stemming. Features were extracted using TF-IDF vectorisation, which weights terms by their document-relative frequency rather than raw count — reducing the dominance of common words.
-      </p>
-      <p>
-        Classification models were trained on the TF-IDF representation and evaluated by precision, recall, and F1 per category. The analysis also included exploratory text mining to surface the most discriminative terms for each advertisement class — giving a human-readable explanation of what the model learned to look for.
+        The analysis revealed which films act as hubs in the network (high betweenness centrality), which clusters of movies are tightly connected within genres, and how far the network deviates from a random graph, a property relevant to understanding how recommendations and word-of-mouth propagate through film audiences.
       </p>
 
-      <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem; margin-top:1.25rem;">Part 3 — Dark Image Enhancement</p>
+      <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem; margin-top:1.25rem;">Part 2: Farm Advertisement Text Mining</p>
       <p>
-        Low-light images suffer from noise, loss of detail in shadow regions, and colour distortion — all of which degrade the performance of downstream computer vision systems. The goal was to recover perceptually and computationally useful images from dark inputs.
+        The task was to classify farm-related advertisements by category using natural language processing. Text preprocessing included lowercasing, punctuation removal, stop-word filtering, and stemming. Features were extracted using TF-IDF vectorisation, which weights terms by their document-relative frequency rather than raw count, reducing the dominance of common words.
       </p>
       <p>
-        I implemented and compared classical enhancement techniques (histogram equalisation, CLAHE — contrast-limited adaptive histogram equalisation) against deep learning approaches. CLAHE, which applies equalisation locally in tiles rather than globally, avoided the artefact-heavy outputs that global equalisation produces in high-contrast scenes. The deep learning pipeline was trained end-to-end to map dark inputs to clean references, with the model learning spatial detail recovery implicitly.
+        Classification models were trained on the TF-IDF representation and evaluated by precision, recall, and F1 per category. The analysis also included exploratory text mining to surface the most discriminative terms for each advertisement class, giving a human-readable explanation of what the model learned to look for.
+      </p>
+
+      <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem; margin-top:1.25rem;">Part 3: Dark Image Enhancement</p>
+      <p>
+        Low-light images suffer from noise, loss of detail in shadow regions, and colour distortion, all of which degrade the performance of downstream computer vision systems. The goal was to recover perceptually and computationally useful images from dark inputs.
+      </p>
+      <p>
+        I implemented and compared classical enhancement techniques (histogram equalisation, CLAHE, i.e. contrast-limited adaptive histogram equalisation) against deep learning approaches. CLAHE, which applies equalisation locally in tiles rather than globally, avoided the artefact-heavy outputs that global equalisation produces in high-contrast scenes. The deep learning pipeline was trained end-to-end to map dark inputs to clean references, with the model learning spatial detail recovery implicitly.
       </p>
       <p>
         Output quality was assessed using PSNR (peak signal-to-noise ratio) and SSIM (structural similarity index), which measure pixel-level accuracy and perceptual structure preservation respectively. A full 6.1 MB report documented the methodology and results with visual comparisons across all approaches.
       </p>
 
-      <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem; margin-top:1.25rem;">Part 4 — AR Landmark Recognition</p>
+      <p style="color:var(--accent); font-weight:600; margin-bottom:0.5rem; margin-top:1.25rem;">Part 4: AR Landmark Recognition</p>
       <p>
-        The task was to build a system that recognises landmarks (buildings, sculptures, signage) from images captured in an augmented reality context — which means handling variable viewing angles, partial occlusion, reflections, and changing light conditions that would break a naive template-matching approach.
+        The task was to build a system that recognises landmarks (buildings, sculptures, signage) from images captured in an augmented reality context, which means handling variable viewing angles, partial occlusion, reflections, and changing light conditions that would break a naive template-matching approach.
       </p>
       <p>
         Feature extraction used local descriptors robust to affine transformations. A matching pipeline compared query image features to a reference database and returned the best candidate along with a confidence estimate. The AR overlay component drew recognition results directly onto the live frame.
@@ -150,16 +150,16 @@
     <div class="detail-section">
       <p class="detail-section-label">Results</p>
       <p>
-        The network analysis surfaced clear hub structure in the movie graph — a small number of highly-connected films acted as bridges between otherwise separate clusters, consistent with the scale-free properties observed in real-world entertainment networks.
+        The network analysis surfaced clear hub structure in the movie graph: a small number of highly-connected films acted as bridges between otherwise separate clusters, consistent with the scale-free properties observed in real-world entertainment networks.
       </p>
       <p>
-        The text classifier achieved strong per-category F1 scores on the farm advertisement dataset, with the most discriminative features being domain-specific agricultural terms — validating that TF-IDF captured meaningful signal rather than noise.
+        The text classifier achieved strong per-category F1 scores on the farm advertisement dataset, with the most discriminative features being domain-specific agricultural terms, validating that TF-IDF captured meaningful signal rather than noise.
       </p>
       <p>
         CLAHE significantly outperformed global histogram equalisation on dark image enhancement, particularly in preserving local contrast in shadow regions without over-amplifying noise. The deep learning model improved further on CLAHE, recovering fine texture detail that classical methods lost.
       </p>
       <p>
-        The AR landmark system achieved reliable recognition across the test set under standard conditions, with performance degrading gracefully as occlusion and viewpoint variation increased — a more realistic result than the near-perfect numbers sometimes reported on clean benchmarks.
+        The AR landmark system achieved reliable recognition across the test set under standard conditions, with performance degrading gracefully as occlusion and viewpoint variation increased, a more realistic result than the near-perfect numbers sometimes reported on clean benchmarks.
       </p>
       <p style="color:var(--muted); font-size:0.82rem; font-family:var(--font-mono)">
         Note: full metric tables are in the individual assignment reports linked below.
@@ -173,10 +173,10 @@
         Working across four different problem types in one submission forced me to confront how domain-specific "good evaluation" really is. PSNR and SSIM mean nothing for graph analysis; F1 per class means nothing for image quality. Choosing the right evaluation criterion is as important as choosing the right model, and it requires actually understanding the problem rather than applying a standard template.
       </p>
       <p>
-        The image enhancement project gave me a durable mental model for when classical methods beat deep learning: when the transformation is well-understood mathematically, has limited degrees of freedom, and the dataset is small. CLAHE has a clear prior — local contrast normalisation — that deep models have to discover from scratch. On small training sets, that prior wins.
+        The image enhancement project gave me a durable mental model for when classical methods beat deep learning: when the transformation is well-understood mathematically, has limited degrees of freedom, and the dataset is small. CLAHE has a clear prior (local contrast normalisation) that deep models have to discover from scratch. On small training sets, that prior wins.
       </p>
       <p>
-        The AR project was where I most directly confronted the gap between academic benchmarks and real-world deployment. Recognition performance on clean, frontal, well-lit images is not a useful number. The useful number is how much performance degrades under the conditions users will actually create — and designing test sets that reflect that is harder than building the model.
+        The AR project was where I most directly confronted the gap between academic benchmarks and real-world deployment. Recognition performance on clean, frontal, well-lit images is not a useful number. The useful number is how much performance degrades under the conditions users will actually create, and designing test sets that reflect that is harder than building the model.
       </p>
     </div>
 
@@ -230,7 +230,7 @@
         <textarea class="form-textarea" id="contact-message" name="message" rows="4" maxlength="1000" required></textarea>
       </div>
       <button type="submit" class="form-submit">Send Message</button>
-      <p class="form-success-msg" id="form-success-msg">Thanks — I'll get back to you soon.</p>
+      <p class="form-success-msg" id="form-success-msg">Thanks, I'll get back to you soon.</p>
     </form>
   </div>
 </div>

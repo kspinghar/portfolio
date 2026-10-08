@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Heart Disease ML Pipeline — Khalid Spinghar</title>
+  <title>Heart Disease ML Pipeline · Khalid Spinghar</title>
   <meta name="description" content="End-to-end supervised ML pipeline for heart disease prediction with logistic regression, random forest, 5-fold cross-validation, and unsupervised pattern discovery." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -53,7 +53,7 @@
     <!-- Header -->
     <div class="detail-header">
       <h1 class="detail-title">Heart Disease ML Pipeline</h1>
-      <p class="detail-meta">Sep 2025 · 5 min read · MSc AI, Kristiania University College — Introduction to AI</p>
+      <p class="detail-meta">Sep 2025 · 5 min read · MSc AI, Kristiania University College: Introduction to AI</p>
       <div class="detail-tags">
         <span class="tag">Python</span>
         <span class="tag">scikit-learn</span>
@@ -69,7 +69,7 @@
     <div class="detail-section">
       <p class="detail-section-label">The Problem</p>
       <p>
-        Heart disease is the leading cause of death globally, yet many of its key risk factors are measurable through routine clinical tests — blood pressure, cholesterol, resting ECG, maximum heart rate achieved during exercise. The data exists; the question is whether a machine learning model can reliably predict disease presence from it, and whether that model can be made interpretable enough for a clinical audience.
+        Heart disease is the leading cause of death globally, yet many of its key risk factors are measurable through routine clinical tests: blood pressure, cholesterol, resting ECG, maximum heart rate achieved during exercise. The data exists; the question is whether a machine learning model can reliably predict disease presence from it, and whether that model can be made interpretable enough for a clinical audience.
       </p>
       <p>
         This project built a complete supervised ML pipeline from raw clinical data through to evaluated, interpretable predictions, and extended it with an unsupervised component to discover structure in the patient population without using the diagnosis label.
@@ -94,15 +94,15 @@
     <div class="detail-section">
       <p class="detail-section-label">What I Built</p>
 
-      <p><strong style="color:var(--text)">Preprocessing pipeline:</strong> A scikit-learn Pipeline object chained four stages: SimpleImputer for missing values (mean strategy for numerical, most-frequent for categorical), one-hot encoding for categorical features, StandardScaler for numerical features, and VarianceThreshold to drop near-zero-variance columns. Wrapping these in a Pipeline ensured no data leakage across cross-validation folds — the scaler and imputer are fit only on training folds.</p>
+      <p><strong style="color:var(--text)">Preprocessing pipeline:</strong> A scikit-learn Pipeline object chained four stages: SimpleImputer for missing values (mean strategy for numerical, most-frequent for categorical), one-hot encoding for categorical features, StandardScaler for numerical features, and VarianceThreshold to drop near-zero-variance columns. Wrapping these in a Pipeline ensured no data leakage across cross-validation folds: the scaler and imputer are fit only on training folds.</p>
 
-      <p><strong style="color:var(--text)">Logistic Regression:</strong> The interpretable baseline. Coefficients were extracted and visualised to show which clinical features push predictions toward or away from a positive diagnosis. This gives clinicians a direct feature-level explanation — a requirement in medical ML applications.</p>
+      <p><strong style="color:var(--text)">Logistic Regression:</strong> The interpretable baseline. Coefficients were extracted and visualised to show which clinical features push predictions toward or away from a positive diagnosis. This gives clinicians a direct feature-level explanation, a requirement in medical ML applications.</p>
 
-      <p><strong style="color:var(--text)">Random Forest:</strong> The ensemble model. Feature importances were computed and compared to the logistic coefficients — agreement between the two methods increases confidence that a feature is genuinely predictive rather than an artefact of one model's assumptions.</p>
+      <p><strong style="color:var(--text)">Random Forest:</strong> The ensemble model. Feature importances were computed and compared to the logistic coefficients. Agreement between the two methods increases confidence that a feature is genuinely predictive rather than an artefact of one model's assumptions.</p>
 
       <p><strong style="color:var(--text)">Evaluation suite:</strong> Each model was assessed with a full classification report (precision, recall, F1, support), confusion matrix visualisation, ROC-AUC curve, and 5-fold cross-validation scores. Reporting both precision and recall is important in medical settings where the cost of a false negative (missed disease) differs from a false positive.</p>
 
-      <p><strong style="color:var(--text)">Unsupervised component:</strong> After the supervised analysis, the diagnosis label was removed and clustering was applied to the patient feature space to discover natural groupings — asking whether patients with similar clinical profiles tend to cluster in ways that correspond to disease presence, without telling the algorithm the answer.</p>
+      <p><strong style="color:var(--text)">Unsupervised component:</strong> After the supervised analysis, the diagnosis label was removed and clustering was applied to the patient feature space to discover natural groupings, asking whether patients with similar clinical profiles tend to cluster in ways that correspond to disease presence, without telling the algorithm the answer.</p>
 
       <div class="metric-row">
         <div class="metric">
@@ -124,13 +124,13 @@
     <div class="detail-section">
       <p class="detail-section-label">Results</p>
       <p>
-        Both models achieved strong classification performance on the heart disease dataset. The Random Forest outperformed Logistic Regression on overall accuracy and ROC-AUC, as expected given its capacity to model non-linear interactions between features. However, Logistic Regression's interpretability advantage remained significant — its coefficients produced clinically sensible rankings of feature importance that were easier to communicate and audit.
+        Both models achieved strong classification performance on the heart disease dataset. The Random Forest outperformed Logistic Regression on overall accuracy and ROC-AUC, as expected given its capacity to model non-linear interactions between features. However, Logistic Regression's interpretability advantage remained significant: its coefficients produced clinically sensible rankings of feature importance that were easier to communicate and audit.
       </p>
       <p>
         5-fold cross-validation confirmed that the performance numbers were stable and not the result of a favourable single split. The standard deviation of CV scores was low for both models, indicating consistent generalisation.
       </p>
       <p>
-        The unsupervised component found that patient clusters aligned meaningfully with diagnosis status — suggesting that the clinical feature space contains genuine structure separating higher- and lower-risk patients, even without using the label.
+        The unsupervised component found that patient clusters aligned meaningfully with diagnosis status, suggesting that the clinical feature space contains genuine structure separating higher- and lower-risk patients, even without using the label.
       </p>
       <p style="color:var(--muted); font-size:0.82rem; font-family:var(--font-mono)">
         Note: exact accuracy, F1, and AUC values are in the full notebook (IAI4100-1_25H_ARTEFACT).
@@ -141,13 +141,13 @@
     <div class="detail-section">
       <p class="detail-section-label">What I Learned</p>
       <p>
-        The Pipeline object in scikit-learn changed how I think about preprocessing. Before this project I applied transformations globally before splitting. Wrapping everything in a Pipeline makes cross-validation correct by construction — there is no opportunity to leak validation fold statistics into the training process. It's a small habit with significant consequences for the validity of reported metrics.
+        The Pipeline object in scikit-learn changed how I think about preprocessing. Before this project I applied transformations globally before splitting. Wrapping everything in a Pipeline makes cross-validation correct by construction: there is no opportunity to leak validation fold statistics into the training process. It's a small habit with significant consequences for the validity of reported metrics.
       </p>
       <p>
-        I also came away with a stronger appreciation for why interpretability matters in healthcare ML. A model that is 2% more accurate but requires a black box to explain will face a much harder adoption path than one that can tell a clinician "this patient's high resting heart rate and ST depression are the primary drivers of this prediction." The logistic regression's transparency is not a weakness — in context, it's a feature.
+        I also came away with a stronger appreciation for why interpretability matters in healthcare ML. A model that is 2% more accurate but requires a black box to explain will face a much harder adoption path than one that can tell a clinician "this patient's high resting heart rate and ST depression are the primary drivers of this prediction." The logistic regression's transparency is not a weakness. In context, it's a feature.
       </p>
       <p>
-        The comparison between supervised and unsupervised results was the most intellectually interesting part. When unsupervised clusters align with known labels, it validates the signal quality of the features. When they don't, it usually means the label is capturing something the features don't — or that the clustering algorithm is finding a different, also-real structure.
+        The comparison between supervised and unsupervised results was the most intellectually interesting part. When unsupervised clusters align with known labels, it validates the signal quality of the features. When they don't, it usually means the label is capturing something the features don't, or that the clustering algorithm is finding a different, also-real structure.
       </p>
     </div>
 
@@ -201,7 +201,7 @@
         <textarea class="form-textarea" id="contact-message" name="message" rows="4" maxlength="1000" required></textarea>
       </div>
       <button type="submit" class="form-submit">Send Message</button>
-      <p class="form-success-msg" id="form-success-msg">Thanks — I'll get back to you soon.</p>
+      <p class="form-success-msg" id="form-success-msg">Thanks, I'll get back to you soon.</p>
     </form>
   </div>
 </div>

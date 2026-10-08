@@ -1,7 +1,7 @@
 http://*  https://:splat  301!
 www.kintelanalytics.com  https://kintelanalytics.com  301!
 
-# Old pages removed in the redesign — bounce to the homepage instead of 404
+# Old pages removed in the redesign: bounce to the homepage instead of 404
 /about                  /  301
 /about.html             /  301
 /projects               /  301

@@ -1,4 +1,4 @@
-# Private working files — not part of the website
+# Private working files, not part of the website
 .claude/
 *.docx
 claude-code-update-prompt.md
@@ -7,7 +7,7 @@ xai-ids-demo-prompt.md
 # NorskOrd is its own repo + GitHub Pages site (nested git repo)
 norskord/
 
-# Archived old-design pages — kept locally, never deployed
+# Archived old-design pages: kept locally, never deployed
 archive/
 
 # OS cruft

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bank Customer Churn — What-If Calculator — Khalid Spinghar</title>
+  <title>Bank Customer Churn: What-If Calculator · Khalid Spinghar</title>
   <meta name="description" content="Logistic-regression churn model on a 10 000-row European retail-banking dataset, wrapped in a live what-if calculator." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -52,8 +52,8 @@
 
     <!-- Header -->
     <div class="detail-header">
-      <h1 class="detail-title">Bank Customer Churn — What-If Calculator</h1>
-      <p class="detail-meta">May 2023 · 5 min read · BSc Applied Data Science, Noroff — Statistical Analysis Tools and Techniques</p>
+      <h1 class="detail-title">Bank Customer Churn: What-If Calculator</h1>
+      <p class="detail-meta">May 2023 · 5 min read · BSc Applied Data Science, Noroff: Statistical Analysis Tools and Techniques</p>
       <div class="detail-tags">
         <span class="tag">Python</span>
         <span class="tag">scikit-learn</span>
@@ -68,10 +68,10 @@
     <div class="detail-section">
       <p class="detail-section-label">The Problem</p>
       <p>
-        Customer churn — when a profitable customer cancels or walks away — is one of the most expensive failure modes in retail banking. Acquiring a replacement customer costs many times more than retaining an existing one, and the highest-value customers are typically also the most mobile. The question is whether routine customer attributes — age, balance, product holdings, satisfaction scores, activity flags — carry enough signal to identify customers at elevated churn risk early enough to do something about it.
+        Customer churn (when a profitable customer cancels or walks away) is one of the most expensive failure modes in retail banking. Acquiring a replacement customer costs many times more than retaining an existing one, and the highest-value customers are typically also the most mobile. The question is whether routine customer attributes (age, balance, product holdings, satisfaction scores, activity flags) carry enough signal to identify customers at elevated churn risk early enough to do something about it.
       </p>
       <p>
-        The dataset was a 10 000-row European retail-banking sample with demographic, account, and engagement features, and a binary <code>Exited</code> label flagging customers who closed their accounts. The deliverable was a model plus the analytical narrative around what drives churn — the kind of artefact a retention team could actually argue with.
+        The dataset was a 10 000-row European retail-banking sample with demographic, account, and engagement features, and a binary <code>Exited</code> label flagging customers who closed their accounts. The deliverable was a model plus the analytical narrative around what drives churn: the kind of artefact a retention team could actually argue with.
       </p>
     </div>
 
@@ -79,13 +79,13 @@
     <div class="detail-section">
       <p class="detail-section-label">My Approach</p>
       <p>
-        I chose Logistic Regression deliberately, even though tree-based models tend to win on raw accuracy for tabular churn problems. The reason is interpretability — for a retention team to act on the model's predictions, they need to be able to point at a customer and say <em>this is why we think they'll leave</em>. Logistic Regression hands you that directly: a signed coefficient per feature, applied to a standardized input, gives a clean per-customer decomposition of the prediction.
+        I chose Logistic Regression deliberately, even though tree-based models tend to win on raw accuracy for tabular churn problems. The reason is interpretability: for a retention team to act on the model's predictions, they need to be able to point at a customer and say <em>this is why we think they'll leave</em>. Logistic Regression hands you that directly: a signed coefficient per feature, applied to a standardized input, gives a clean per-customer decomposition of the prediction.
       </p>
       <p>
-        One important design choice was to <em>exclude the <code>Complain</code> feature</em>. In this dataset Complain correlates near-perfectly (~0.99) with Exited, which means a model that uses it is trivially accurate but operationally useless — by the time a customer has formally complained, the retention window is often closed. Excluding it forces the model to reason from the leading indicators (engagement, balance trajectory, product mix, satisfaction scores) that retention can actually intervene on.
+        One important design choice was to <em>exclude the <code>Complain</code> feature</em>. In this dataset Complain correlates near-perfectly (~0.99) with Exited, which means a model that uses it is trivially accurate but operationally useless: by the time a customer has formally complained, the retention window is often closed. Excluding it forces the model to reason from the leading indicators (engagement, balance trajectory, product mix, satisfaction scores) that retention can actually intervene on.
       </p>
       <p>
-        The pipeline is a single scikit-learn <code>Pipeline</code> wrapping a <code>ColumnTransformer</code> — median-imputed StandardScaler for numerics, most-frequent-imputed OneHotEncoder for categoricals — feeding into <code>LogisticRegression(max_iter=1000)</code>. Performance is reported via 5-fold stratified cross-validation rather than a single split.
+        The pipeline is a single scikit-learn <code>Pipeline</code> wrapping a <code>ColumnTransformer</code> (median-imputed StandardScaler for numerics, most-frequent-imputed OneHotEncoder for categoricals) feeding into <code>LogisticRegression(max_iter=1000)</code>. Performance is reported via 5-fold stratified cross-validation rather than a single split.
       </p>
     </div>
 
@@ -97,9 +97,9 @@
 
       <p><strong style="color:var(--text)">Sklearn pipeline:</strong> A single <code>Pipeline</code> chained the <code>ColumnTransformer</code> preprocessing through to the <code>LogisticRegression</code> classifier. Wrapping everything in a Pipeline means cross-validation cannot leak scaler statistics from validation folds into training folds.</p>
 
-      <p><strong style="color:var(--text)">5-fold stratified CV:</strong> Performance measured across five stratified folds to get an honest estimate that doesn't depend on a lucky split. Reported accuracy, F1, and ROC-AUC, with standard deviations — F1 is the one that matters here because the dataset is imbalanced (~20% churn rate) and a naive "predict stayed for everyone" classifier already gets ~80% accuracy.</p>
+      <p><strong style="color:var(--text)">5-fold stratified CV:</strong> Performance measured across five stratified folds to get an honest estimate that doesn't depend on a lucky split. Reported accuracy, F1, and ROC-AUC, with standard deviations. F1 is the one that matters here because the dataset is imbalanced (~20% churn rate) and a naive "predict stayed for everyone" classifier already gets ~80% accuracy.</p>
 
-      <p><strong style="color:var(--text)">Live what-if calculator:</strong> A Gradio app wrapping the trained pipeline. Pick a real customer from the dataset and their actual attributes populate the inputs. Then tweak anything — sliders for numeric features, dropdowns for categoricals — and watch the churn probability and driver breakdown update <em>live</em>, on every input change, without a Predict button. The interactivity is the point: it lets you ask counterfactual questions like "what if this customer became active again?" or "would lowering their balance trigger churn?"</p>
+      <p><strong style="color:var(--text)">Live what-if calculator:</strong> A Gradio app wrapping the trained pipeline. Pick a real customer from the dataset and their actual attributes populate the inputs. Then tweak anything (sliders for numeric features, dropdowns for categoricals) and watch the churn probability and driver breakdown update <em>live</em>, on every input change, without a Predict button. The interactivity is the point: it lets you ask counterfactual questions like "what if this customer became active again?" or "would lowering their balance trigger churn?"</p>
 
       <p><strong style="color:var(--text)">Driver-contribution panel:</strong> For each prediction, the logistic-regression coefficients are applied to that customer's scaled feature values and aggregated back to the original feature names. The result is a per-customer breakdown of which inputs are pushing the prediction toward churn (red) or staying (green), with the magnitude visible on a horizontal bar chart.</p>
 
@@ -123,13 +123,13 @@
     <div class="detail-section">
       <p class="detail-section-label">Results</p>
       <p>
-        5-fold stratified CV yielded accuracy ≈ 0.81, ROC-AUC ≈ 0.77, and F1 ≈ 0.32 on the positive (churn) class. The F1 looks low at first glance but is honest — on an imbalanced dataset with the leaky Complain feature removed, predicting the minority class from leading indicators alone is genuinely hard, and a 0.77 AUC means the model is meaningfully ranking customers even when the default 0.5 threshold misses many of them.
+        5-fold stratified CV yielded accuracy ≈ 0.81, ROC-AUC ≈ 0.77, and F1 ≈ 0.32 on the positive (churn) class. The F1 looks low at first glance but is honest: on an imbalanced dataset with the leaky Complain feature removed, predicting the minority class from leading indicators alone is genuinely hard, and a 0.77 AUC means the model is meaningfully ranking customers even when the default 0.5 threshold misses many of them.
       </p>
       <p>
-        The driver breakdown surfaced consistent and operationally useful patterns. <em>IsActiveMember = No</em>, <em>Age</em> in the upper third, and <em>Location = Germany</em> were the strongest churn-pushing factors. <em>NumOfProducts = 1</em> pushed up too, while <em>NumOfProducts = 2</em> was the strongest protective factor — consistent with the well-known engagement-product-count relationship in retail banking.
+        The driver breakdown surfaced consistent and operationally useful patterns. <em>IsActiveMember = No</em>, <em>Age</em> in the upper third, and <em>Location = Germany</em> were the strongest churn-pushing factors. <em>NumOfProducts = 1</em> pushed up too, while <em>NumOfProducts = 2</em> was the strongest protective factor, consistent with the well-known engagement-product-count relationship in retail banking.
       </p>
       <p>
-        The most informative use of the what-if calculator is on customers the model gets wrong — e.g. a customer flagged as low-risk who in reality churned. Nudging their attributes to see what would have flipped the prediction surfaces exactly where the model's blind spots are, which is more useful than any single accuracy number.
+        The most informative use of the what-if calculator is on customers the model gets wrong, e.g. a customer flagged as low-risk who in reality churned. Nudging their attributes to see what would have flipped the prediction surfaces exactly where the model's blind spots are, which is more useful than any single accuracy number.
       </p>
     </div>
 
@@ -137,13 +137,13 @@
     <div class="detail-section">
       <p class="detail-section-label">What I Learned</p>
       <p>
-        The decision to exclude the Complain feature was the most important choice in the whole project. It's the difference between a model that demonstrates technical accuracy and a model that's useful to a retention team. Leaky features make benchmark numbers look great and operational performance terrible — a lesson that generalises far beyond banking.
+        The decision to exclude the Complain feature was the most important choice in the whole project. It's the difference between a model that demonstrates technical accuracy and a model that's useful to a retention team. Leaky features make benchmark numbers look great and operational performance terrible, a lesson that generalises far beyond banking.
       </p>
       <p>
-        Interpretability is not the same as transparency. Logistic regression coefficients are transparent — you can read them — but they're only interpretable in context. Showing a coefficient table is much less useful than showing a per-customer decomposition that demonstrates how that coefficient is actually working in a specific case. The what-if interactivity does exactly that.
+        Interpretability is not the same as transparency. Logistic regression coefficients are transparent (you can read them), but they're only interpretable in context. Showing a coefficient table is much less useful than showing a per-customer decomposition that demonstrates how that coefficient is actually working in a specific case. The what-if interactivity does exactly that.
       </p>
       <p>
-        Live reactivity changes how people engage with a model. A Predict button frames the model as something you query for an answer. A live-updating interface frames it as something you <em>play with</em>. The second framing produces much richer questions — and richer questions are usually how you find out what the model doesn't know.
+        Live reactivity changes how people engage with a model. A Predict button frames the model as something you query for an answer. A live-updating interface frames it as something you <em>play with</em>. The second framing produces much richer questions, and richer questions are usually how you find out what the model doesn't know.
       </p>
     </div>
 
@@ -197,7 +197,7 @@
         <textarea class="form-textarea" id="contact-message" name="message" rows="4" maxlength="1000" required></textarea>
       </div>
       <button type="submit" class="form-submit">Send Message</button>
-      <p class="form-success-msg" id="form-success-msg">Thanks — I'll get back to you soon.</p>
+      <p class="form-success-msg" id="form-success-msg">Thanks, I'll get back to you soon.</p>
     </form>
   </div>
 </div>

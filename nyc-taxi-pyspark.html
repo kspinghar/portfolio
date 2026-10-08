@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NYC Taxi PySpark Pipeline — Khalid Spinghar</title>
-  <meta name="description" content="PySpark pipeline over 2020–2024 NYC Yellow and Green Taxi trip data — Parquet ingest, Spark SQL cleaning, feature engineering, and a Spark ML regression to predict fare amount." />
+  <title>NYC Taxi PySpark Pipeline · Khalid Spinghar</title>
+  <meta name="description" content="PySpark pipeline over 2020-2024 NYC Yellow and Green Taxi trip data: Parquet ingest, Spark SQL cleaning, feature engineering, and a Spark ML regression to predict fare amount." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -53,7 +53,7 @@
     <!-- Header -->
     <div class="detail-header">
       <h1 class="detail-title">NYC Taxi PySpark Pipeline</h1>
-      <p class="detail-meta">Nov 2025 · 6 min read · MSc AI, Kristiania University College — Big Data Systems</p>
+      <p class="detail-meta">Nov 2025 · 6 min read · MSc AI, Kristiania University College: Big Data Systems</p>
       <div class="detail-tags">
         <span class="tag">PySpark</span>
         <span class="tag">Spark SQL</span>
@@ -69,10 +69,10 @@
     <div class="detail-section">
       <p class="detail-section-label">The Problem</p>
       <p>
-        The NYC Taxi and Limousine Commission publishes monthly Parquet files covering every yellow- and green-taxi trip in New York City. Across the 2020–2024 window the data runs to hundreds of millions of rows — far beyond what a single-machine pandas workflow can comfortably handle. The exercise was to treat it as a real big-data problem from the start: build the ingest, cleaning, feature engineering, EDA, and modelling stages so that the same code would scale from a laptop sample to the full multi-year corpus.
+        The NYC Taxi and Limousine Commission publishes monthly Parquet files covering every yellow- and green-taxi trip in New York City. Across the 2020 to 2024 window the data runs to hundreds of millions of rows, far beyond what a single-machine pandas workflow can comfortably handle. The exercise was to treat it as a real big-data problem from the start: build the ingest, cleaning, feature engineering, EDA, and modelling stages so that the same code would scale from a laptop sample to the full multi-year corpus.
       </p>
       <p>
-        The downstream goal was to predict <code>fare_amount</code> from trip attributes (distance, time, pickup/drop-off zones, passenger count) — a regression problem nominally simple, but interesting precisely because the data engineering around it is where most of the work lives.
+        The downstream goal was to predict <code>fare_amount</code> from trip attributes (distance, time, pickup/drop-off zones, passenger count), a regression problem nominally simple, but interesting precisely because the data engineering around it is where most of the work lives.
       </p>
     </div>
 
@@ -83,7 +83,7 @@
         I structured the pipeline as four discrete stages, each owning a clear contract with the next: ingest → process → persist → analyse. Keeping the boundaries explicit means the heavy Spark stages can be re-run independently when the schema changes, and the downstream EDA can be replayed against the persisted artefact without re-touching the source Parquet.
       </p>
       <p>
-        For the cleaning step I deliberately leaned on Spark SQL rather than the DataFrame API where possible — SQL is the lingua franca of data engineering, easier to review, and easier to port if the pipeline ever moves to a SQL warehouse like BigQuery or Snowflake.
+        For the cleaning step I deliberately leaned on Spark SQL rather than the DataFrame API where possible: SQL is the lingua franca of data engineering, easier to review, and easier to port if the pipeline ever moves to a SQL warehouse like BigQuery or Snowflake.
       </p>
       <p>
         For the ML stage I used Spark ML's Pipeline + VectorAssembler + train/test split idiom and trained three regressors (Linear Regression, Decision Tree, Random Forest) on the cleaned, feature-engineered data to compare how much non-linearity actually buys on this dataset.
@@ -100,18 +100,18 @@
 
       <p><strong style="color:var(--text)">Persisted samples as SQLite:</strong> Saved cleaned, sampled outputs to <code>.db</code> files so the EDA stage and any companion demo could query without spinning up a Spark session. This is the same pattern you'd use in a production pipeline that hands curated subsets off to a BI layer.</p>
 
-      <p><strong style="color:var(--text)">EDA with Spark SQL:</strong> Eight aggregation queries answering questions the operator actually cares about — top pickup zones, hour-of-day distribution, fare-by-distance bins, weekend vs weekday volume, drop-off zones with the highest average fare, payment-method mix, average fare for long trips, and yellow-vs-green comparison.</p>
+      <p><strong style="color:var(--text)">EDA with Spark SQL:</strong> Eight aggregation queries answering questions the operator actually cares about: top pickup zones, hour-of-day distribution, fare-by-distance bins, weekend vs weekday volume, drop-off zones with the highest average fare, payment-method mix, average fare for long trips, and yellow-vs-green comparison.</p>
 
       <p><strong style="color:var(--text)">Feature engineering:</strong> Derived <code>trip_duration_minutes</code> from pickup/drop-off timestamps, extracted hour-of-day and day-of-week categoricals, bucketed <code>trip_distance</code> into ordinal bins, and one-hot encoded payment_type for the regression stage.</p>
 
       <p><strong style="color:var(--text)">Spark ML regression:</strong> Trained <code>LinearRegression</code>, <code>DecisionTreeRegressor</code>, and <code>RandomForestRegressor</code> through a Spark ML Pipeline on the cleaned, feature-engineered data. Evaluated each on a held-out test split using RMSE and R².</p>
 
-      <p><strong style="color:var(--text)">Companion query explorer:</strong> A small Gradio app that replays the EDA queries against the persisted SQLite samples — same SQL the Spark pipeline ran, just at a scale you can host on free CPU infrastructure.</p>
+      <p><strong style="color:var(--text)">Companion query explorer:</strong> A small Gradio app that replays the EDA queries against the persisted SQLite samples: same SQL the Spark pipeline ran, just at a scale you can host on free CPU infrastructure.</p>
 
       <div class="metric-row">
         <div class="metric">
           <p class="metric-label">Years Covered</p>
-          <p class="metric-value">2020–2024</p>
+          <p class="metric-value">2020-2024</p>
         </div>
         <div class="metric">
           <p class="metric-label">Pipeline Stages</p>
@@ -128,10 +128,10 @@
     <div class="detail-section">
       <p class="detail-section-label">Results</p>
       <p>
-        The EDA confirmed a number of intuitive patterns and surfaced a couple of less obvious ones. Trip volume peaks sharply between 5pm and 7pm, with a smaller morning ridge. Average fare scales near-linearly with distance up to about 10 miles, then flattens for the longer airport-trip-heavy tail. Weekday trip counts substantially exceed weekend trips, but average fare is slightly higher on weekends — consistent with longer leisure trips replacing short commuter hops.
+        The EDA confirmed a number of intuitive patterns and surfaced a couple of less obvious ones. Trip volume peaks sharply between 5pm and 7pm, with a smaller morning ridge. Average fare scales near-linearly with distance up to about 10 miles, then flattens for the longer airport-trip-heavy tail. Weekday trip counts substantially exceed weekend trips, but average fare is slightly higher on weekends, consistent with longer leisure trips replacing short commuter hops.
       </p>
       <p>
-        On the regression side, Random Forest outperformed both Linear Regression and the single Decision Tree on test-set R² — unsurprising given the non-linear interaction between distance, time, and zone. Linear Regression remained competitive on RMSE for trips inside the bulk of the distribution, but degraded sharply on the long-distance tail where its inability to model the flattening fare curve cost it.
+        On the regression side, Random Forest outperformed both Linear Regression and the single Decision Tree on test-set R², unsurprising given the non-linear interaction between distance, time, and zone. Linear Regression remained competitive on RMSE for trips inside the bulk of the distribution, but degraded sharply on the long-distance tail where its inability to model the flattening fare curve cost it.
       </p>
       <p>
         Operationally, persisting cleaned outputs as SQLite turned out to be a much better choice than I expected. The companion query explorer demo runs on essentially zero infrastructure, queries return in milliseconds, and the SQL is portable to any system that speaks ANSI SQL.
@@ -142,13 +142,13 @@
     <div class="detail-section">
       <p class="detail-section-label">What I Learned</p>
       <p>
-        Working in Spark made me a much more deliberate writer of SQL. With pandas, you can chain together steps that work on small data and break silently on large data — type coercions, NULL handling, joins that explode. Spark forces you to be explicit about every cast and every join key, which transfers nicely to any production environment.
+        Working in Spark made me a much more deliberate writer of SQL. With pandas, you can chain together steps that work on small data and break silently on large data: type coercions, NULL handling, joins that explode. Spark forces you to be explicit about every cast and every join key, which transfers nicely to any production environment.
       </p>
       <p>
         The separation between processing (Spark) and serving (SQLite, in this case) is a pattern I'll keep using. Big-data tools are not the right surface for ad-hoc queries; persisting a curated subset to a smaller, faster store after the heavy work is done gives you the best of both worlds.
       </p>
       <p>
-        Cross-validating the same query in two different engines — Spark SQL on the full Parquet, then sqlite3 on the persisted sample — is a useful sanity check. Differences surface schema bugs, type-coercion bugs, and edge cases the smaller dataset hides.
+        Cross-validating the same query in two different engines (Spark SQL on the full Parquet, then sqlite3 on the persisted sample) is a useful sanity check. Differences surface schema bugs, type-coercion bugs, and edge cases the smaller dataset hides.
       </p>
     </div>
 
@@ -202,7 +202,7 @@
         <textarea class="form-textarea" id="contact-message" name="message" rows="4" maxlength="1000" required></textarea>
       </div>
       <button type="submit" class="form-submit">Send Message</button>
-      <p class="form-success-msg" id="form-success-msg">Thanks — I'll get back to you soon.</p>
+      <p class="form-success-msg" id="form-success-msg">Thanks, I'll get back to you soon.</p>
     </form>
   </div>
 </div>

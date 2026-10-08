@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Insurance Risk Segmentation — Khalid Spinghar</title>
+  <title>Insurance Risk Segmentation · Khalid Spinghar</title>
   <meta name="description" content="Unsupervised segmentation of 678,013 French auto insurance policies using K-Means and PCA to surface three distinct risk profiles." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -53,7 +53,7 @@
     <!-- Header -->
     <div class="detail-header">
       <h1 class="detail-title">Insurance Risk Segmentation</h1>
-      <p class="detail-meta">Mar 2026 · 7 min read · MSc AI, Kristiania University College — Smart Analysis and Decision Making</p>
+      <p class="detail-meta">Mar 2026 · 7 min read · MSc AI, Kristiania University College: Smart Analysis and Decision Making</p>
       <div class="detail-tags">
         <span class="tag">Python</span>
         <span class="tag">scikit-learn</span>
@@ -70,10 +70,10 @@
     <div class="detail-section">
       <p class="detail-section-label">The Problem</p>
       <p>
-        Insurance pricing is fundamentally a risk estimation problem. A policyholder who makes many claims costs the insurer money; one who never claims is profitable. The challenge is that you cannot know in advance which type of customer you are dealing with — you can only look at observable characteristics and infer risk.
+        Insurance pricing is fundamentally a risk estimation problem. A policyholder who makes many claims costs the insurer money; one who never claims is profitable. The challenge is that you cannot know in advance which type of customer you are dealing with. You can only look at observable characteristics and infer risk.
       </p>
       <p>
-        This project used the <em>freMTPL2freq</em> dataset — a standard actuarial benchmark containing 678,013 French motor third-party liability insurance policies — to ask: do policyholders naturally group into distinct risk profiles based on their characteristics, and do those groupings predict claim behaviour?
+        This project used the <em>freMTPL2freq</em> dataset (a standard actuarial benchmark containing 678,013 French motor third-party liability insurance policies) to ask: do policyholders naturally group into distinct risk profiles based on their characteristics, and do those groupings predict claim behaviour?
       </p>
       <p>
         The key constraint was that this had to be done without using claim counts as an input feature. Segmentation had to emerge from policyholder attributes alone, with claims used only for post-hoc validation.
@@ -84,13 +84,13 @@
     <div class="detail-section">
       <p class="detail-section-label">My Approach</p>
       <p>
-        The dataset has 12 features per policy. I selected five numerical features for clustering: vehicle power (VehPower), vehicle age (VehAge), driver age (DrivAge), bonus-malus coefficient (BonusMalus — a French regulatory risk score), and population density (Density). Density was log-transformed to compress its heavy right skew, then all features were standardised using StandardScaler.
+        The dataset has 12 features per policy. I selected five numerical features for clustering: vehicle power (VehPower), vehicle age (VehAge), driver age (DrivAge), bonus-malus coefficient (BonusMalus, a French regulatory risk score), and population density (Density). Density was log-transformed to compress its heavy right skew, then all features were standardised using StandardScaler.
       </p>
       <p>
         I evaluated three algorithms: K-Means on the raw 5D feature space, K-Means on PCA-reduced representations (testing 3 and 4 principal components), and hierarchical clustering with Ward linkage on a 2,000-point subsample (required because hierarchical clustering's O(n²) memory complexity makes it infeasible on the full 678k rows).
       </p>
       <p>
-        The number of clusters was selected through two independent methods — the elbow method on within-cluster sum of squares, and silhouette analysis — both of which pointed to K=3 as optimal.
+        The number of clusters was selected through two independent methods (the elbow method on within-cluster sum of squares, and silhouette analysis), both of which pointed to K=3 as optimal.
       </p>
     </div>
 
@@ -98,7 +98,7 @@
     <div class="detail-section">
       <p class="detail-section-label">What I Built</p>
 
-      <p><strong style="color:var(--text)">PCA analysis:</strong> Five principal components were computed. The variance decomposition showed no sharp elbow — PC1 explained 30.6%, PC2 22.1%, PC3 19.9%, PC4 17.3%, PC5 10.2% — meaning the feature space has no dominant axis of variation. PCA-3 (the first three components) provided the best trade-off between dimensionality reduction and information retention for downstream clustering.</p>
+      <p><strong style="color:var(--text)">PCA analysis:</strong> Five principal components were computed. The variance decomposition showed no sharp elbow (PC1 explained 30.6%, PC2 22.1%, PC3 19.9%, PC4 17.3%, PC5 10.2%), meaning the feature space has no dominant axis of variation. PCA-3 (the first three components) provided the best trade-off between dimensionality reduction and information retention for downstream clustering.</p>
 
       <p><strong style="color:var(--text)">Clustering comparison:</strong> Four configurations were benchmarked using internal validity indices:</p>
       <ul style="font-size:0.91rem; color:var(--dim); line-height:1.8; padding-left:1.2rem; margin-bottom:0.75rem;">
@@ -109,7 +109,7 @@
       </ul>
       <p>K-Means on PCA-3 was the clear winner across all metrics. Dimensionality reduction before clustering removed noise from the feature space and improved cluster separation.</p>
 
-      <p><strong style="color:var(--text)">Validation:</strong> Kruskal-Wallis tests confirmed that claim frequency differences across the three clusters were highly statistically significant (p ≪ 0.001), meaning the segments weren't artefacts of the algorithm — they tracked real differences in policyholder behaviour.</p>
+      <p><strong style="color:var(--text)">Validation:</strong> Kruskal-Wallis tests confirmed that claim frequency differences across the three clusters were highly statistically significant (p ≪ 0.001), meaning the segments weren't artefacts of the algorithm: they tracked real differences in policyholder behaviour.</p>
 
       <div class="metric-row">
         <div class="metric">
@@ -133,16 +133,16 @@
       <p>The three clusters told a coherent actuarial story:</p>
 
       <p>
-        <strong style="color:var(--text)">Cluster 0 — Rural Mature Low-Risk (46.9%, 318,130 policies):</strong> Average driver age 50.8, bonus-malus 52.3, low population density (2,132). Claim frequency 0.190 — the lowest of the three groups. Older, experienced drivers in lower-density areas pose the least risk.
+        <strong style="color:var(--text)">Cluster 0, Rural Mature Low-Risk (46.9%, 318,130 policies):</strong> Average driver age 50.8, bonus-malus 52.3, low population density (2,132). Claim frequency 0.190, the lowest of the three groups. Older, experienced drivers in lower-density areas pose the least risk.
       </p>
       <p>
-        <strong style="color:var(--text)">Cluster 1 — Young Urban High-Risk (22.6%, 153,563 policies):</strong> Average driver age 31.6, bonus-malus 84.2, urban density (2,451). Claim frequency 0.351 — nearly double Cluster 0. Young drivers in cities with elevated bonus-malus scores are the highest-risk segment.
+        <strong style="color:var(--text)">Cluster 1, Young Urban High-Risk (22.6%, 153,563 policies):</strong> Average driver age 31.6, bonus-malus 84.2, urban density (2,451). Claim frequency 0.351, nearly double Cluster 0. Young drivers in cities with elevated bonus-malus scores are the highest-risk segment.
       </p>
       <p>
-        <strong style="color:var(--text)">Cluster 2 — Urban Mature Moderate-Risk (30.4%, 206,320 policies):</strong> Average driver age 47.6, bonus-malus 53.1, lower density (778). Claim frequency 0.289 — intermediate. Mature drivers but in a different geographic and risk profile from Cluster 0.
+        <strong style="color:var(--text)">Cluster 2, Urban Mature Moderate-Risk (30.4%, 206,320 policies):</strong> Average driver age 47.6, bonus-malus 53.1, lower density (778). Claim frequency 0.289 (intermediate). Mature drivers but in a different geographic and risk profile from Cluster 0.
       </p>
       <p>
-        These three profiles map cleanly onto risk tiers an actuary would recognise. The segmentation emerged purely from unsupervised learning — no claim data was used as input.
+        These three profiles map cleanly onto risk tiers an actuary would recognise. The segmentation emerged purely from unsupervised learning: no claim data was used as input.
       </p>
     </div>
 
@@ -150,13 +150,13 @@
     <div class="detail-section">
       <p class="detail-section-label">What I Learned</p>
       <p>
-        The most practically useful insight was that PCA before K-Means is not just a trick to speed up computation — it materially improves cluster quality by removing correlated noise dimensions. The gap between PCA-3 and the raw 5D clustering was larger than I expected.
+        The most practically useful insight was that PCA before K-Means is not just a trick to speed up computation. It materially improves cluster quality by removing correlated noise dimensions. The gap between PCA-3 and the raw 5D clustering was larger than I expected.
       </p>
       <p>
         I also learned to be more careful about what "interpretable" means in unsupervised settings. Internal indices (silhouette, Davies-Bouldin) tell you how tight and well-separated clusters are, but they say nothing about whether those clusters are meaningful. The Kruskal-Wallis validation step was essential to confirm that the algorithm had found something real, not just a tidy mathematical partition.
       </p>
       <p>
-        The hierarchical clustering experiment was humbling. Even on a 2,000-point subsample, it produced comparable results to K-Means on the full dataset — suggesting that for well-separated clusters, you often don't need all the data. But its O(n²) scaling makes it impractical for production insurance datasets, where K-Means scales linearly and wins on deployment feasibility.
+        The hierarchical clustering experiment was humbling. Even on a 2,000-point subsample, it produced comparable results to K-Means on the full dataset, suggesting that for well-separated clusters, you often don't need all the data. But its O(n²) scaling makes it impractical for production insurance datasets, where K-Means scales linearly and wins on deployment feasibility.
       </p>
     </div>
 
@@ -210,7 +210,7 @@
         <textarea class="form-textarea" id="contact-message" name="message" rows="4" maxlength="1000" required></textarea>
       </div>
       <button type="submit" class="form-submit">Send Message</button>
-      <p class="form-success-msg" id="form-success-msg">Thanks — I'll get back to you soon.</p>
+      <p class="form-success-msg" id="form-success-msg">Thanks, I'll get back to you soon.</p>
     </form>
   </div>
 </div>
